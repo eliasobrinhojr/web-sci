@@ -1,2 +1,2 @@
-# ws-sci
+# web-sci
 interno componel
