@@ -1,31 +1,6 @@
 $(document).ready(function () {
     init();
 
-    $("#logCidade").on('keyup', function (e) {
-//        console.log($("#logCidade").val().length);
-        var cidadesFiltrada = ["blue", "green", "pink", "red", "yellow"];
-
-        var url_local = "http://dev.grupois.mao/sciweb/ws-sci/service/cidade/read.php?strCidade=";
-       
-        if ($("#logCidade").val().length > 3) {
-            $.ajax({
-                type: 'GET',
-                url: url_local + $("#logCidade").val(),
-                dataType: 'json',
-                success: function (data) {
-                    
-                    console.log(data);
-                    configuraAutoComplete(cidadesFiltrada);
-                }, error: function (result) {
-                    console.log(result);
-                }
-            });
-        }
-
-
-        //requisicao ajax e qnd retornar
-        
-    });
 
     $(function () {
         $('#modalToggle').click(function () {
@@ -88,18 +63,36 @@ $(document).ready(function () {
 
 function init() {
     carregaComboEmpresaAtividade();
+    configuraAutocomplete();
 }
 
-function configuraAutoComplete(arr) {
+function configuraAutocomplete() {
+    var $input = $(".typeahead");
+    $input.typeahead({
+        source: [
+            {id: "1", name: "Manaus"},
+            {id: "2", name: "Roraima"}
+        ],
+        autoSelect: true
+    });
+    $input.change(function () {
+        var current = $input.typeahead("getActive");
 
-    var options = {
-        data: arr
-    };
-
-    $("#logCidade").easyAutocomplete(options);
-
-    document.getElementsByClassName('easy-autocomplete')[0].style.width = '100%';
+        if (current) {
+            // Some item from your model is active!
+            if (current.name == $input.val()) {
+                console.log(current.id);
+                // This means the exact match is found. Use toLowerCase() if you want case insensitive match.
+            } else {
+                // This means it is only a partial match, you can either add a new item
+                // or take the active if you don't want new items
+            }
+        } else {
+            // Nothing is active so it is a new value (or maybe empty value)
+        }
+    });
 }
+
 
 function carregaComboEmpresaAtividade() {
     var url = "http://dev.grupois.mao/sciweb/ws-sci/service/empresaAtividade/read.php";

@@ -14,9 +14,6 @@
 
 
 
-        <!-- CSS file -->
-        <link rel="stylesheet" href="autocomplete/easy-autocomplete.min.css"> 
-
         <!-- Bootstrap core CSS-->
         <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -211,9 +208,8 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label for="">&nbsp;</label>
-                                                         
-                                                                     <input type="text" class="form-control" placeholder="Cidade" id="logCidade">
-                                          
+
+                                                                <input id="cidade" type="text" class="typeahead" data-provide="typeahead">
                                                             </div>
 
                                                         </div>
@@ -354,9 +350,11 @@
         <!-- Bootstrap core JavaScript-->
 
         <script src="vendor/jquery/jquery.min.js"></script>
-        <!-- JS file -->
-        <script src="autocomplete/jquery.easy-autocomplete.min.js"></script> 
+        <!-- JS file --> 
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <script src="js/typeahead.js"></script>
+        <script src="js/typeahead.min.js"></script>
 
         <!-- Core plugin JavaScript-->
         <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
