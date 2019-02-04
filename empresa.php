@@ -89,9 +89,9 @@
                                             <li class="nav-item">
                                                 <a class="nav-link" data-toggle="tab" href="#ads" role="tab">Resp</a>
                                             <li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#placementPanel" role="tab">Endereço</a>
-                                            <li>
+                                                <!--                                            <li class="nav-item">
+                                                                                                <a class="nav-link" data-toggle="tab" href="#placementPanel" role="tab">Endereço</a>
+                                                                                            <li>-->
                                             <li class="nav-item">
                                                 <a class="nav-link" data-toggle="tab" href="#schedulePanel" role="tab">Logradouro</a>
                                             <li>
@@ -102,6 +102,7 @@
 
                                         <div class="tab-content mt-2">
                                             <div class="tab-pane fade show active" id="infoPanel" role="tabpanel">
+                                                <br>
                                                 <h4>Informações</h4>
                                                 <div class="form-group">
                                                     <div class="form-row">
@@ -131,23 +132,41 @@
                                                     <div class="form-group">
                                                         <div class="form-row">
                                                             <div class="col-md-6">
-                                                                <label for="Atividade"><b>Atividade</b></label>
-                                                                <select id="selectAtividade" name="selectAtividade" class="form-control">
+                                                                <label for="Atividade">Atividade</label>
+                                                                <select required id="selectAtividade" name="selectAtividade" class="form-control">
                                                                 </select>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <h4>Endereço</h4>
+                                                    <div class="form-group">
+                                                        <div class="form-row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-label-group">
+                                                                    <input type="number" id="endNumero" class="form-control" placeholder="Endereço Número" required="required">
+                                                                    <label for="endNumero">Número</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-label-group">
+                                                                    <input type="text" id="empcomplemento" class="form-control" placeholder="Complemento" required="required">
+                                                                    <label for="complemento">Complemento</label>
+                                                                </div>
 
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
-
+                                                <hr>
                                                 <button class="btn btn-secondary" id="infoContinue">Continuar</button>
                                             </div>
                                             <div class="tab-pane fade" id="ads" role="tabpanel">
+                                                <br>
                                                 <h4>Responsável</h4>
                                                 <div class="form-group">
                                                     <div class="form-row">
-
 
                                                         <div class="col-md-3">
                                                             <label for="">&nbsp;</label>
@@ -168,31 +187,32 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <button class="btn btn-secondary" id="adsContinue">Continuar</button>
+                                                <hr>
+                                                <button class="btn btn-secondary" id="respContinue">Continuar</button>
                                             </div>
-                                            <div class="tab-pane fade" id="placementPanel" role="tabpanel">
-                                                <h4>Endereço</h4>
-                                                <div class="form-group">
-                                                    <div class="form-row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-label-group">
-                                                                <input type="number" id="endNumero" class="form-control" placeholder="Endereço Número" required="required">
-                                                                <label for="endNumero">Endereço Número</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-label-group">
-                                                                <input type="text" id="empcomplemento" class="form-control" placeholder="Complemento" required="required">
-                                                                <label for="complemento">Complemento</label>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <button class="btn btn-secondary" id="placementContinue">Continuar</button>
-                                            </div>
+                                            <!--                                            <div class="tab-pane fade" id="placementPanel" role="tabpanel">
+                                                                                            <h4>Endereço</h4>
+                                                                                            <div class="form-group">
+                                                                                                <div class="form-row">
+                                                                                                    <div class="col-md-6">
+                                                                                                        <div class="form-label-group">
+                                                                                                            <input type="number" id="endNumero" class="form-control" placeholder="Endereço Número" required="required">
+                                                                                                            <label for="endNumero">Endereço Número</label>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-6">
+                                                                                                        <div class="form-label-group">
+                                                                                                            <input type="text" id="empcomplemento" class="form-control" placeholder="Complemento" required="required">
+                                                                                                            <label for="complemento">Complemento</label>
+                                                                                                        </div>
+                                            
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <button class="btn btn-secondary" id="endContinue">Continuar</button>
+                                                                                        </div>-->
                                             <div class="tab-pane fade" id="schedulePanel" role="tabpanel">
-                                                <h4>&nbsp;</h4>
+                                                <br><h4>Endereço</h4>
                                                 <div id="scheduleAccordion" class="mb-3" role="tablist" aria-multiselectable="true">
 
                                                     <div class="form-group">
@@ -207,9 +227,9 @@
 
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label for="">&nbsp;</label>
+                                                                <label for="">Cidade</label>
 
-                                                                <input id="cidade" type="text" class="typeahead" data-provide="typeahead">
+                                                                <input id="logcidade" type="text" class="form-control typeahead" data-provide="typeahead">
                                                             </div>
 
                                                         </div>
@@ -240,7 +260,8 @@
 
 
                                                 </div>
-                                                <button class="btn btn-secondary" id="scheduleContinue">Continuar</button>
+                                                <hr>
+                                                <button class="btn btn-secondary" id="logContinue">Continuar</button>
                                             </div>
                                             <div class="tab-pane fade" id="reviewPanel" role="tabpanel">
                                                 <h4>Review</h4>
@@ -248,7 +269,7 @@
                                             </div>
                                         </div>
                                         <div class="progress mt-5">
-                                            <div class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Step 1 of 5</div>
+                                            <div class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Passo 1 de 4</div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -364,7 +385,7 @@
         <script src="vendor/datatables/jquery.dataTables.js"></script>
         <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
 
-        <!-- Custom scripts for all pages-->
+        <!-- Custom scripts for all pascheduleContinueges-->
         <script src="js/sb-admin.min.js"></script>
 
         <!-- Demo scripts for this page-->

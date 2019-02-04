@@ -1,65 +1,61 @@
 $(document).ready(function () {
     init();
-
-
     $(function () {
         $('#modalToggle').click(function () {
             $('#modal').modal({
                 backdrop: 'static'
             });
         });
-
         $('#infoContinue').click(function (e) {
             e.preventDefault();
             $('.progress-bar').css('width', '40%');
-            $('.progress-bar').html('Step 2 of 5');
+            $('.progress-bar').html('Passo 2 de 4');
+
+
             $('#myTab a[href="#ads"]').tab('show');
         });
-
-        $('#adsContinue').click(function (e) {
+        $('#respContinue').click(function (e) {
             e.preventDefault();
             $('.progress-bar').css('width', '60%');
-            $('.progress-bar').html('Step 3 of 5');
-            $('#myTab a[href="#placementPanel"]').tab('show');
-        });
-
-        $('#placementContinue').click(function (e) {
-            e.preventDefault();
-            $('.progress-bar').css('width', '80%');
-            $('.progress-bar').html('Step 4 of 5');
+            $('.progress-bar').html('Passo 3 de 4');
             $('#myTab a[href="#schedulePanel"]').tab('show');
         });
-
-        $('#scheduleContinue').click(function (e) {
+//        $('#endContinue').click(function (e) {
+//            e.preventDefault();
+//            $('.progress-bar').css('width', '80%');
+//            $('.progress-bar').html('Step 4 of 5');
+//            $('#myTab a[href="#schedulePanel"]').tab('show');
+//        });
+        $('#logContinue').click(function (e) {
             e.preventDefault();
             $('.progress-bar').css('width', '100%');
-            $('.progress-bar').html('Step 5 of 5');
+            $('.progress-bar').html('Passo 4 de 4');
             $('#myTab a[href="#reviewPanel"]').tab('show');
         });
-
         $('#activate').click(function (e) {
             e.preventDefault();
-            var formData = {
-                campaign_name: $('#campaignName').val(),
-                start_date: $('#start-date').val(),
-                end_date: $('#end-date').val(),
-                days: {
-                    sunday: $('#sunday').prop('checked'),
-                    monday: $('#monday').prop('checked'),
-                    tuesday: $('#tuesday').prop('checked'),
-                    wednesday: $('#wednesday').prop('checked'),
-                    thurday: $('#thursday').prop('checked'),
-                    friday: $('#friday').prop('checked'),
-                    saturday: $('#saturday').prop('checked')
-                },
-                start_time: $('#start-time').val(),
-                end_time: $('#end-time').val()
+
+            var id_cidade = $(".typeahead").typeahead("getActive").id;
+            var obj = {cnpj: $('#cnpj').val(),
+                inscMunicipal: $('#inscrMunicipal').val(),
+                razaoSocial: $('#razaoSocial').val(),
+                id_atividade: $('#selectAtividade').val(),
+                numero: $('#endNumero').val(),
+                complemento: $('#empcomplemento').val(),
+                respNome: $('#respnome').val(),
+                respCpf: $('#respcpf').val(),
+                logNome: $('#lognome').val(),
+                logCidade: id_cidade,
+                logCep: $('#logcep').val(),
+                logComplemento: $('#logcomplemento').val()
             };
-            alert(JSON.stringify(formData));
+
+            console.log(obj);
+            alert(JSON.stringify(obj));
         });
     });
-
-});
+}
+);
 
 function init() {
     carregaComboEmpresaAtividade();
@@ -67,30 +63,45 @@ function init() {
 }
 
 function configuraAutocomplete() {
-    var $input = $(".typeahead");
-    $input.typeahead({
-        source: [
-            {id: "1", name: "Manaus"},
-            {id: "2", name: "Roraima"}
-        ],
-        autoSelect: true
-    });
-    $input.change(function () {
-        var current = $input.typeahead("getActive");
 
-        if (current) {
-            // Some item from your model is active!
-            if (current.name == $input.val()) {
-                console.log(current.id);
-                // This means the exact match is found. Use toLowerCase() if you want case insensitive match.
-            } else {
-                // This means it is only a partial match, you can either add a new item
-                // or take the active if you don't want new items
-            }
-        } else {
-            // Nothing is active so it is a new value (or maybe empty value)
+    var url_local = "http://dev.grupois.mao/sciweb/ws-sci/service/cidade/read.php";
+
+
+    $.ajax({
+        type: 'GET',
+        url: url_local,
+        dataType: 'json',
+        success: function (data) {
+
+
+            var $input = $(".typeahead");
+            $input.typeahead({
+                source: data.body,
+                autoSelect: true
+            });
+            $input.change(function () {
+                var current = $input.typeahead("getActive");
+
+                if (current) {
+                    // Some item from your model is active!
+                    if (current.name == $input.val()) {
+
+                        console.log(current.id);
+                        // This means the exact match is found. Use toLowerCase() if you want case insensitive match.
+                    } else {
+                        // This means it is only a partial match, you can either add a new item
+                        // or take the active if you don't want new items
+                    }
+                } else {
+                    // Nothing is active so it is a new value (or maybe empty value)
+                }
+            });
+
+        }, error: function (result) {
+            console.log(result);
         }
     });
+
 }
 
 
