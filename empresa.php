@@ -101,67 +101,69 @@
                                         </ul>
 
                                         <div class="tab-content mt-2">
-                                            <div class="tab-pane fade show active" id="infoPanel" role="tabpanel">
-                                                <br>
-                                                <h4>Informações</h4>
-                                                <div class="form-group">
-                                                    <div class="form-row">
-
-                                                        <div class="col-md-6">
-                                                            <div class="form-label-group">
-                                                                <input type="text" id="cnpj" class="form-control" placeholder="CNPJ" required="required" autofocus="autofocus">
-                                                                <label for="cnpj">CNPJ</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-label-group">
-                                                                <input type="text" id="inscrMunicipal" class="form-control" placeholder="Inscrição Municipal" required="required">
-                                                                <label for="inscrMunicipal">Inscrição Municipal</label>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="form-label-group">
-                                                        <input type="text" id="razaoSocial" class="form-control" placeholder="Razão Social" required="required">
-                                                        <label for="razaoSocial">Razão Social</label>
-                                                    </div>
+                                         
+                                                <div class="tab-pane fade show active" id="infoPanel" role="tabpanel">
                                                     <br>
-
+                                                    <h4>Informações</h4>
                                                     <div class="form-group">
                                                         <div class="form-row">
+
                                                             <div class="col-md-6">
-                                                                <label for="Atividade">Atividade</label>
-                                                                <select required id="selectAtividade" name="selectAtividade" class="form-control">
-                                                                </select>
+                                                                <div class="form-label-group">
+                                                                    <input type="text" id="cnpj" class="form-control" placeholder="CNPJ" required="required" autofocus="autofocus">
+                                                                    <label for="cnpj">CNPJ</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-label-group">
+                                                                    <input type="text" id="inscrMunicipal" class="form-control" placeholder="Inscrição Municipal" required="required">
+                                                                    <label for="inscrMunicipal">Inscrição Municipal</label>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="form-label-group">
+                                                            <input type="text" id="razaoSocial" class="form-control" placeholder="Razão Social" required="required">
+                                                            <label for="razaoSocial">Razão Social</label>
+                                                        </div>
+                                                        <br>
+
+                                                        <div class="form-group">
+                                                            <div class="form-row">
+                                                                <div class="col-md-6">
+                                                                    <label for="Atividade">Atividade</label>
+                                                                    <select required id="selectAtividade" name="selectAtividade" class="form-control">
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <h4>Endereço</h4>
+                                                        <div class="form-group">
+                                                            <div class="form-row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-label-group">
+                                                                        <input type="number" id="endNumero" class="form-control" placeholder="Endereço Número" required="required">
+                                                                        <label for="endNumero">Número</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-label-group">
+                                                                        <input type="text" id="empcomplemento" class="form-control" placeholder="Complemento" required="required">
+                                                                        <label for="complemento">Complemento</label>
+                                                                    </div>
+
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <hr>
-                                                    <h4>Endereço</h4>
-                                                    <div class="form-group">
-                                                        <div class="form-row">
-                                                            <div class="col-md-6">
-                                                                <div class="form-label-group">
-                                                                    <input type="number" id="endNumero" class="form-control" placeholder="Endereço Número" required="required">
-                                                                    <label for="endNumero">Número</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-label-group">
-                                                                    <input type="text" id="empcomplemento" class="form-control" placeholder="Complemento" required="required">
-                                                                    <label for="complemento">Complemento</label>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <button class="btn btn-secondary" id="infoContinue">Continuar</button>
                                                 </div>
-
-                                                <hr>
-                                                <button class="btn btn-secondary" id="infoContinue">Continuar</button>
-                                            </div>
+                                        
                                             <div class="tab-pane fade" id="ads" role="tabpanel">
                                                 <br>
                                                 <h4>Responsável</h4>

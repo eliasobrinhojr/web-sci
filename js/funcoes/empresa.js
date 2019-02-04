@@ -1,41 +1,19 @@
 $(document).ready(function () {
     init();
+
     $(function () {
         $('#modalToggle').click(function () {
             $('#modal').modal({
                 backdrop: 'static'
             });
         });
+
         $('#infoContinue').click(function (e) {
             e.preventDefault();
-            $('.progress-bar').css('width', '40%');
-            $('.progress-bar').html('Passo 2 de 4');
 
 
-            $('#myTab a[href="#ads"]').tab('show');
-        });
-        $('#respContinue').click(function (e) {
-            e.preventDefault();
-            $('.progress-bar').css('width', '60%');
-            $('.progress-bar').html('Passo 3 de 4');
-            $('#myTab a[href="#schedulePanel"]').tab('show');
-        });
-//        $('#endContinue').click(function (e) {
-//            e.preventDefault();
-//            $('.progress-bar').css('width', '80%');
-//            $('.progress-bar').html('Step 4 of 5');
-//            $('#myTab a[href="#schedulePanel"]').tab('show');
-//        });
-        $('#logContinue').click(function (e) {
-            e.preventDefault();
-            $('.progress-bar').css('width', '100%');
-            $('.progress-bar').html('Passo 4 de 4');
-            $('#myTab a[href="#reviewPanel"]').tab('show');
-        });
-        $('#activate').click(function (e) {
-            e.preventDefault();
+            var msg = '';
 
-            var id_cidade = $(".typeahead").typeahead("getActive").id;
             var obj = {cnpj: $('#cnpj').val(),
                 inscMunicipal: $('#inscrMunicipal').val(),
                 razaoSocial: $('#razaoSocial').val(),
@@ -45,13 +23,131 @@ $(document).ready(function () {
                 respNome: $('#respnome').val(),
                 respCpf: $('#respcpf').val(),
                 logNome: $('#lognome').val(),
-                logCidade: id_cidade,
+                logCidade: 0,
                 logCep: $('#logcep').val(),
                 logComplemento: $('#logcomplemento').val()
             };
 
-            console.log(obj);
-            alert(JSON.stringify(obj));
+            if (obj.cnpj.trim() == '') {
+                msg += '\nCnpj Obrigatório\n';
+            }
+            if (obj.inscMunicipal.trim() == '') {
+                msg += '\nIncrição Municipal Obrigatória\n';
+            }
+            if (obj.razaoSocial.trim() == '') {
+                msg += '\nRazao Social Obrigatória\n';
+            }
+            if (obj.id_atividade == 0) {
+                msg += '\nTipo Atividade Obrigatório\n';
+            }
+            if (obj.numero == '') {
+                msg += '\nNúmero Obrigatório\n';
+            }
+            if (obj.complemento.trim() == '') {
+                msg += '\nComplemento Obrigatório\n';
+            }
+
+            if (msg == '') {
+                $('.progress-bar').css('width', '40%');
+                $('.progress-bar').html('Passo 2 de 4');
+                $('#myTab a[href="#ads"]').tab('show');
+            } else {
+                alert(msg);
+            }
+            msg = '';
+
+        });
+        $('#respContinue').click(function (e) {
+            e.preventDefault();
+
+
+            var msg = '';
+            var respNome = $('#respnome').val();
+            var respCpf = $('#respcpf').val();
+
+            if (respNome.trim() == '') {
+                msg += '\nNome Obrigatório\n';
+            }
+            if (respCpf.trim() == '') {
+                msg += '\nCpf Obrigatório\n';
+            }
+
+            if (msg == '') {
+                $('.progress-bar').css('width', '60%');
+                $('.progress-bar').html('Passo 3 de 4');
+                $('#myTab a[href="#schedulePanel"]').tab('show');
+            } else {
+                alert(msg);
+            }
+            msg = '';
+
+
+        });
+
+        $('#logContinue').click(function (e) {
+            e.preventDefault();
+
+            var msg = '';
+            var logNome = $('#lognome').val();
+            var logCidade = 0;
+            var logCep = $('#logcep').val();
+            var logComplemento = $('#logcomplemento').val();
+
+
+            if (logNome.trim() == '') {
+                msg += '\nNome Obrigatório\n';
+            }
+            if (logCep.trim() == '') {
+                msg += '\nCep Obrigatório\n';
+            }
+            if (logComplemento.trim() == '') {
+                msg += '\nComplemento Obrigatório\n';
+            }
+
+            var $input = $(".typeahead");
+            var current = $input.typeahead("getActive");
+
+            if (current == undefined) {
+                 msg += '\nCidade Obrigatória\n';
+            }
+
+            if (msg == '') {
+                $('.progress-bar').css('width', '100%');
+                $('.progress-bar').html('Passo 4 de 4');
+                $('#myTab a[href="#reviewPanel"]').tab('show');
+            } else {
+                alert(msg);
+            }
+            msg = '';
+
+
+        });
+        $('#activate').click(function (e) {
+            e.preventDefault();
+
+            var $input = $(".typeahead");
+            var current = $input.typeahead("getActive");
+
+            if (current != undefined) {
+                var obj = {cnpj: $('#cnpj').val(),
+                    inscMunicipal: $('#inscrMunicipal').val(),
+                    razaoSocial: $('#razaoSocial').val(),
+                    id_atividade: $('#selectAtividade').val(),
+                    numero: $('#endNumero').val(),
+                    complemento: $('#empcomplemento').val(),
+                    respNome: $('#respnome').val(),
+                    respCpf: $('#respcpf').val(),
+                    logNome: $('#lognome').val(),
+                    logCidade: current.id,
+                    logCep: $('#logcep').val(),
+                    logComplemento: $('#logcomplemento').val()
+                };
+
+                console.log(obj);
+                alert(JSON.stringify(obj));
+            }
+
+
         });
     });
 }
@@ -62,10 +158,10 @@ function init() {
     configuraAutocomplete();
 }
 
+
 function configuraAutocomplete() {
 
     var url_local = "http://dev.grupois.mao/sciweb/ws-sci/service/cidade/read.php";
-
 
     $.ajax({
         type: 'GET',
