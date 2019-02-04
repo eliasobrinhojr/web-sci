@@ -1,19 +1,14 @@
 $(document).ready(function () {
     init();
-
     $(function () {
         $('#modalToggle').click(function () {
             $('#modal').modal({
                 backdrop: 'static'
             });
         });
-
         $('#infoContinue').click(function (e) {
             e.preventDefault();
-
-
             var msg = '';
-
             var obj = {cnpj: $('#cnpj').val(),
                 inscMunicipal: $('#inscrMunicipal').val(),
                 razaoSocial: $('#razaoSocial').val(),
@@ -23,11 +18,8 @@ $(document).ready(function () {
                 respNome: $('#respnome').val(),
                 respCpf: $('#respcpf').val(),
                 logNome: $('#lognome').val(),
-                logCidade: 0,
-                logCep: $('#logcep').val(),
-                logComplemento: $('#logcomplemento').val()
+                logCidade: 0
             };
-
             if (obj.cnpj.trim() == '') {
                 msg += '\nCnpj Obrigatório\n';
             }
@@ -40,12 +32,7 @@ $(document).ready(function () {
             if (obj.id_atividade == 0) {
                 msg += '\nTipo Atividade Obrigatório\n';
             }
-            if (obj.numero == '') {
-                msg += '\nNúmero Obrigatório\n';
-            }
-            if (obj.complemento.trim() == '') {
-                msg += '\nComplemento Obrigatório\n';
-            }
+
 
             if (msg == '') {
                 $('.progress-bar').css('width', '40%');
@@ -55,16 +42,12 @@ $(document).ready(function () {
                 alert(msg);
             }
             msg = '';
-
         });
         $('#respContinue').click(function (e) {
             e.preventDefault();
-
-
             var msg = '';
             var respNome = $('#respnome').val();
             var respCpf = $('#respcpf').val();
-
             if (respNome.trim() == '') {
                 msg += '\nNome Obrigatório\n';
             }
@@ -80,35 +63,28 @@ $(document).ready(function () {
                 alert(msg);
             }
             msg = '';
-
-
         });
-
         $('#logContinue').click(function (e) {
             e.preventDefault();
-
             var msg = '';
-            var logNome = $('#lognome').val();
             var logCidade = 0;
-            var logCep = $('#logcep').val();
-            var logComplemento = $('#logcomplemento').val();
+
+            var numero = $('#endNumero').val();
+            var complemento = $('#empcomplemento').val();
 
 
-            if (logNome.trim() == '') {
-                msg += '\nNome Obrigatório\n';
+            if (numero == '') {
+                msg += '\nNúmero Obrigatório\n';
             }
-            if (logCep.trim() == '') {
-                msg += '\nCep Obrigatório\n';
-            }
-            if (logComplemento.trim() == '') {
+
+            if (complemento.trim() == '') {
                 msg += '\nComplemento Obrigatório\n';
             }
 
             var $input = $(".typeahead");
             var current = $input.typeahead("getActive");
-
             if (current == undefined) {
-                 msg += '\nCidade Obrigatória\n';
+                msg += '\nCidade Obrigatória\n';
             }
 
             if (msg == '') {
@@ -119,32 +95,39 @@ $(document).ready(function () {
                 alert(msg);
             }
             msg = '';
-
-
         });
         $('#activate').click(function (e) {
             e.preventDefault();
 
-            var $input = $(".typeahead");
-            var current = $input.typeahead("getActive");
+            var log_id = $("#logLogradouro");
+            var crt = log_id.typeahead("getActive");
 
-            if (current != undefined) {
-                var obj = {cnpj: $('#cnpj').val(),
-                    inscMunicipal: $('#inscrMunicipal').val(),
-                    razaoSocial: $('#razaoSocial').val(),
-                    id_atividade: $('#selectAtividade').val(),
-                    numero: $('#endNumero').val(),
-                    complemento: $('#empcomplemento').val(),
-                    respNome: $('#respnome').val(),
-                    respCpf: $('#respcpf').val(),
-                    logNome: $('#lognome').val(),
-                    logCidade: current.id,
-                    logCep: $('#logcep').val(),
-                    logComplemento: $('#logcomplemento').val()
-                };
 
-                console.log(obj);
-                alert(JSON.stringify(obj));
+            if (crt != undefined) {
+
+                var url = "http://dev.grupois.mao/sciweb/ws-sci/service/empresa/create.php";
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    url: url,
+                    data: JSON.stringify({
+                        idEmp: $('#idEmp').val(),
+                        cnpj: $('#cnpj').val(),
+                        inscMunicipal: $('#inscrMunicipal').val(),
+                        razaoSocial: $('#razaoSocial').val(),
+                        id_atividade: $('#selectAtividade').val(),
+                        numero: $('#endNumero').val(),
+                        complemento: $('#empcomplemento').val(),
+                        respNome: $('#respnome').val(),
+                        respCpf: $('#respcpf').val(),
+                        logNome: $('#lognome').val(),
+                        logId: crt.id
+                    }),
+                    success: function (dados) {
+                        alert(dados.message);
+                        
+                    }
+                });
             }
 
 
@@ -152,23 +135,20 @@ $(document).ready(function () {
     });
 }
 );
-
 function init() {
     carregaComboEmpresaAtividade();
-    configuraAutocomplete();
+    configuraAutocompleteCidade();
 }
 
 
-function configuraAutocomplete() {
+function configuraAutocompleteCidade() {
 
     var url_local = "http://dev.grupois.mao/sciweb/ws-sci/service/cidade/read.php";
-
     $.ajax({
         type: 'GET',
         url: url_local,
         dataType: 'json',
         success: function (data) {
-
 
             var $input = $(".typeahead");
             $input.typeahead({
@@ -177,33 +157,45 @@ function configuraAutocomplete() {
             });
             $input.change(function () {
                 var current = $input.typeahead("getActive");
-
                 if (current) {
-                    // Some item from your model is active!
+
                     if (current.name == $input.val()) {
 
-                        console.log(current.id);
-                        // This means the exact match is found. Use toLowerCase() if you want case insensitive match.
-                    } else {
-                        // This means it is only a partial match, you can either add a new item
-                        // or take the active if you don't want new items
+                        configuraAutocompleteLogradouro(current.id);
+
                     }
-                } else {
-                    // Nothing is active so it is a new value (or maybe empty value)
                 }
+            });
+        }, error: function (result) {
+            console.log(result);
+        }
+    });
+}
+
+function configuraAutocompleteLogradouro(id_cidade) {
+    var url_local = "http://dev.grupois.mao/sciweb/ws-sci/service/logradouro/read.php?id_cidade=" + id_cidade;
+
+    $.ajax({
+        type: 'GET',
+        url: url_local,
+        dataType: 'json',
+        success: function (data) {
+
+
+            $("#logLogradouro").typeahead({
+                source: data.body,
+                autoSelect: true
             });
 
         }, error: function (result) {
             console.log(result);
         }
     });
-
 }
 
 
 function carregaComboEmpresaAtividade() {
     var url = "http://dev.grupois.mao/sciweb/ws-sci/service/empresaAtividade/read.php";
-
     $.ajax({
         type: 'GET',
         url: url,
@@ -211,7 +203,6 @@ function carregaComboEmpresaAtividade() {
         success: function (data) {
 
             $('select[name=selectAtividade]').append('<option selected value="0">Selecione</option>');
-
             for (i = 0; i < data.count; i++) {
                 $('select[name=selectAtividade]').append('<option value="' + data.body[i].emaidEmpresaAtividade + '">' + data.body[i].emaNome + '</option>');
             }

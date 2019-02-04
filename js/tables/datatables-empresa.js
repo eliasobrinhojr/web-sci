@@ -26,23 +26,25 @@ $(document).ready(function () {
     $('#table_empresas tbody').on('click', 'tr', function () {
 
         var data = table.row(this).data();
-      
+
 
         //informacoes empresa
+
+        $('#idEmp').val(data[0]);
         $('#cnpj').val(data[1]);
         $('#inscrMunicipal').val(data[2]);
         $('#razaoSocial').val(data[3]);
-        
+
         //responsavel
-         $('#respcpf').val(data[11]);
+        $('#respcpf').val(data[11]);
         $('#respnome').val(data[12]);
-        
+
         //endereço
         $('#empcomplemento').val(data[8]);
         $('#logcep').val(data[5]);
-   
-   
-        
+
+
+
 
 
         $('#modal').modal({
