@@ -274,7 +274,7 @@
                                                     <label><b>Logradouro End</b> : <label id="rvLogradouroEnd"></label></label>
                                                 </div>
                                                 <hr>
-                                                <button class="btn btn-primary btn-block" id="activate">Salvar</button>
+                                                <button class="btn btn-primary btn-block" style="display: none;" id="activate">Salvar</button>
                                             </div>
                                         </div>
                                         <div class="progress mt-5">

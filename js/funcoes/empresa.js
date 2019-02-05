@@ -94,8 +94,6 @@ $(document).ready(function () {
 
             if (msg == '') {
 
-
-
                 $('.progress-bar').css('width', '100%');
                 $('.progress-bar').html('Passo 4 de 4');
                 $('#myTab a[href="#reviewPanel"]').tab('show');
@@ -104,6 +102,10 @@ $(document).ready(function () {
                 $("#reviewDiv").css({
                     display: "block"
                 });
+                $("#activate").css({
+                    display: "block"
+                });
+
                 //cnpj
                 if ($('#cnpj').val().length < 14) {
                     $("#rvcnpj").css({
@@ -266,8 +268,15 @@ $(document).ready(function () {
                     }),
                     success: function (dados) {
                         $('#modal').modal('hide');
+
                         alert(dados.message);
-                        getDataEmpresas();
+
+                        $("#reviewDiv").css({
+                            display: "none"
+                        });
+                        $("#activate").css({
+                            display: "none"
+                        });
                     }
                 });
             } else {
