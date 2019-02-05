@@ -107,20 +107,6 @@ $(document).ready(function () {
             var crt = log_id.typeahead("getActive");
 
 
-//            alert(JSON.stringify({
-//                idEmp: $('#idEmp').val(),
-//                cnpj: $('#cnpj').val(),
-//                inscMunicipal: $('#inscrMunicipal').val(),
-//                razaoSocial: $('#razaoSocial').val(),
-//                id_atividade: $('#selectAtividade').val(),
-//                numero: $('#endNumero').val(),
-//                complemento: $('#empcomplemento').val(),
-//                respNome: $('#respnome').val(),
-//                respCpf: $('#respcpf').val(),
-//                logNome: $('#lognome').val(),
-//                logId: crt.id
-//            }));
-
             if (crt != undefined) {
 
                 var url = "http://dev.grupois.mao/sciweb/ws-sci/service/empresa/create.php";
@@ -147,7 +133,12 @@ $(document).ready(function () {
                     }
                 });
             } else {
-                var txt = '';
+                if ($('.progress-bar').html() != 'Passo 4 de 4') {
+                    alert("Passos incompletos");
+                    $('.progress-bar').css('width', '20%');
+                    $('.progress-bar').html('Passo 1 de 4');
+                    $('#myTab a[href="#infoPanel"]').tab('show');
+                }
             }
 
 

@@ -63,6 +63,7 @@ function getDataEmpresas() {
         dataType: 'json',
         url: url_server,
         success: function (dados) {
+            
             populateDataTable(dados.empresas);
         },
         error: function (err) {
