@@ -267,6 +267,7 @@ $(document).ready(function () {
                         logId: crt.id
                     }),
                     success: function (dados) {
+                        getDataEmpresas();
                         $('#modal').modal('hide');
 
                         alert(dados.message);

@@ -297,7 +297,7 @@
                     <div class="card mb-3">
                         <div class="card-header">
                             <i class="fas fa-table"></i>
-                            Empresas</div>
+                            <label id="lbEmpresas">Empresas</label></div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="table_empresas" width="100%" cellspacing="0">

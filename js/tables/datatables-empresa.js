@@ -65,7 +65,38 @@ function getDataEmpresas() {
         url: url_server,
         success: function (dados) {
 
-            populateDataTable(dados.empresas);
+            getEmpresasNovo(dados.empresas);
+
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+}
+
+function getEmpresasNovo(empresas) {
+    var url_server = "http://dev.grupois.mao/sciweb/ws-sci/service/empresa/read.php";
+
+    $.ajax({
+        type: 'get',
+        dataType: 'json',
+        url: url_server,
+        success: function (dados) {
+            // console.log(empresas[i].cdemp.replace(/^(0+)(\d)/g,"$2"));
+
+            var ids = [];
+
+
+            for (var j = 0; j < dados.body.length; j++) {
+                ids.push(dados.body[j].id_empresa);
+            }
+
+            var result = empresas.filter(function (item) {
+                return ids.indexOf(item.cdemp.replace(/^(0+)(\d)/g, "$2")) == -1;
+            });
+
+            populateDataTable(result);
+
         },
         error: function (err) {
             console.log(err);
@@ -75,6 +106,8 @@ function getDataEmpresas() {
 
 function populateDataTable(data) {
     $("#table_empresas").DataTable().clear();
+
+    $("#lbEmpresas").html('Empresas (' + data.length + ")");
 
     for (var i = 0; i < data.length; i++) {
         var emp = data[i];
