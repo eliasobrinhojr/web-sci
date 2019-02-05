@@ -250,7 +250,7 @@
                                             </div>
                                             <div class="tab-pane fade" id="reviewPanel" role="tabpanel">
                                                 <h4>Review</h4><hr>
-                                                <div id="reviewDiv">
+                                                <div id="reviewDiv" style="display: none;">
                                                     <!--                                                     idEmp: $('#idEmp').val(),
                                                                         cnpj: $('#cnpj').val(),
                                                                         inscMunicipal: $('#inscrMunicipal').val(),
