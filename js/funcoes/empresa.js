@@ -68,11 +68,15 @@ $(document).ready(function () {
             e.preventDefault();
             var msg = '';
             var logCidade = 0;
-
+            var log_id = $("#logLogradouro");
+            var crt = log_id.typeahead("getActive");
             var numero = $('#endNumero').val();
             var complemento = $('#empcomplemento').val();
 
 
+            if (crt == undefined) {
+                msg += '\nLogradouro Obrigatório\n';
+            }
             if (numero == '') {
                 msg += '\nNúmero Obrigatório\n';
             }
@@ -103,6 +107,20 @@ $(document).ready(function () {
             var crt = log_id.typeahead("getActive");
 
 
+//            alert(JSON.stringify({
+//                idEmp: $('#idEmp').val(),
+//                cnpj: $('#cnpj').val(),
+//                inscMunicipal: $('#inscrMunicipal').val(),
+//                razaoSocial: $('#razaoSocial').val(),
+//                id_atividade: $('#selectAtividade').val(),
+//                numero: $('#endNumero').val(),
+//                complemento: $('#empcomplemento').val(),
+//                respNome: $('#respnome').val(),
+//                respCpf: $('#respcpf').val(),
+//                logNome: $('#lognome').val(),
+//                logId: crt.id
+//            }));
+
             if (crt != undefined) {
 
                 var url = "http://dev.grupois.mao/sciweb/ws-sci/service/empresa/create.php";
@@ -125,9 +143,11 @@ $(document).ready(function () {
                     }),
                     success: function (dados) {
                         alert(dados.message);
-                        
+
                     }
                 });
+            } else {
+                var txt = '';
             }
 
 
