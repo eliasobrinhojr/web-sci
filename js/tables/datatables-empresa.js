@@ -27,7 +27,6 @@ $(document).ready(function () {
 
         var data = table.row(this).data();
 
-
         //informacoes empresa
 
         $('#idEmp').val(data[0]);
@@ -45,11 +44,13 @@ $(document).ready(function () {
 
 
 
-
-
         $('#modal').modal({
             backdrop: 'static'
         });
+        $('.progress-bar').css('width', '20%');
+        $('.progress-bar').html('Passo 1 de 4');
+        $('#myTab a[href="#infoPanel"]').tab('show');
+
     });
 });
 
@@ -63,7 +64,7 @@ function getDataEmpresas() {
         dataType: 'json',
         url: url_server,
         success: function (dados) {
-            
+
             populateDataTable(dados.empresas);
         },
         error: function (err) {

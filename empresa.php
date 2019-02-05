@@ -249,8 +249,32 @@
                                                 <button class="btn btn-secondary" id="logContinue">Continuar</button>
                                             </div>
                                             <div class="tab-pane fade" id="reviewPanel" role="tabpanel">
-                                                <h4>Review</h4>
-                                                <button class="btn btn-primary btn-block" id="activate">Activate this Campaign!</button>
+                                                <h4>Review</h4><hr>
+                                                <div id="reviewDiv">
+                                                    <!--                                                     idEmp: $('#idEmp').val(),
+                                                                        cnpj: $('#cnpj').val(),
+                                                                        inscMunicipal: $('#inscrMunicipal').val(),
+                                                                        razaoSocial: $('#razaoSocial').val(),
+                                                                        id_atividade: $('#selectAtividade').val(),
+                                                                        numero: $('#endNumero').val(),
+                                                                        complemento: $('#empcomplemento').val(),
+                                                                        respNome: $('#respnome').val(),
+                                                                        respCpf: $('#respcpf').val(),
+                                                                        logNome: $('#lognome').val(),
+                                                                        logId: crt.id-->
+                                                    <label><b>CNPJ</b> :  <label id="rvcnpj"></label></label><br> 
+                                                    <label><b>Incrição Municipal</b> : <label id="rvIncriMunicipal"></label></label><br>
+                                                    <label><b>Razão Social</b> : <label id="rvRazaoSocial"></label></label><br>
+                                                    <label><b>Tipo Atividade</b> : <label id="rvTipoAtividade"></label></label><br>
+                                                    <label><b>Número</b> : <label id="rvNumero"></label></label><br>
+                                                    <label><b>Complemento</b> : <label id="rvComplemento"></label></label><br>
+
+                                                    <label><b>Responsável Nome</b> : <label id="rvResponsavelNome"></label></label><br>
+                                                    <label><b>Responsável CPF</b> : <label id="rvResponsavelCPF"></label></label><br>
+                                                    <label><b>Logradouro End</b> : <label id="rvLogradouroEnd"></label></label>
+                                                </div>
+                                                <hr>
+                                                <button class="btn btn-primary btn-block" id="activate">Salvar</button>
                                             </div>
                                         </div>
                                         <div class="progress mt-5">
@@ -259,7 +283,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-primary">Salvar</button>
+                                        <!--<button type="button" class="btn btn-primary">Salvar</button>-->
                                     </div>
                                 </div>
                             </div>
