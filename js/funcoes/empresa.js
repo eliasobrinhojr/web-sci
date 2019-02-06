@@ -1,5 +1,15 @@
 $(document).ready(function () {
     init();
+});
+function init() {
+    configuraTabs();
+    carregaComboEmpresaAtividade();
+    configuraAutocompleteCidade();
+    inputMask();
+
+}
+
+function configuraTabs() {
     $(function () {
         var formValid = true;
         $('#modalToggle').click(function () {
@@ -7,6 +17,8 @@ $(document).ready(function () {
                 backdrop: 'static'
             });
         });
+
+
         $('#infoContinue').click(function (e) {
             e.preventDefault();
             var msg = '';
@@ -24,6 +36,10 @@ $(document).ready(function () {
             if (obj.cnpj.trim() == '') {
                 msg += '\nCnpj Obrigatório\n';
             }
+            if (!valida_cnpj(obj.cnpj.trim())) {
+                msg += '\nCnpj Inválido\n';
+            }
+
             if (obj.inscMunicipal.trim() == '') {
                 msg += '\nIncrição Municipal Obrigatória\n';
             }
@@ -44,6 +60,14 @@ $(document).ready(function () {
             }
             msg = '';
         });
+        $('#respBack').click(function (e) {
+            e.preventDefault();
+
+            $('.progress-bar').css('width', '20%');
+            $('.progress-bar').html('Passo 1 de 3');
+            $('#myTab a[href="#infoPanel"]').tab('show');
+
+        });
         $('#respContinue').click(function (e) {
             e.preventDefault();
             var msg = '';
@@ -56,7 +80,7 @@ $(document).ready(function () {
                 msg += '\nCpf Obrigatório\n';
             }
 
-            if (!TestaCPF(respCpf)) {
+            if (!validaCPF(respCpf)) {
                 msg += "\nCPF Inválido";
             }
 
@@ -71,39 +95,15 @@ $(document).ready(function () {
 
             msg = '';
         });
-        $('#logContinue').click(function (e) {
+
+        $('#logBack').click(function (e) {
             e.preventDefault();
-            var msg = '';
-            var logCidade = 0;
-            var log_id = $("#logLogradouro");
-            var crt = log_id.typeahead("getActive");
-            formValid = true;
 
-            if (crt == undefined) {
-                msg += '\nLogradouro Obrigatório\n';
-            }
+            $('.progress-bar').css('width', '40%');
+            $('.progress-bar').html('Passo 2 de 3');
+            $('#myTab a[href="#ads"]').tab('show');
 
-            var $input = $(".typeahead");
-            var current = $input.typeahead("getActive");
-            if (current == undefined) {
-                msg += '\nCidade Obrigatória\n';
-            }
-
-            if (msg == '') {
-
-//                $('.progress-bar').css('width', '100%');
-//                $('.progress-bar').html('Passo 4 de 4');
-//                $('#myTab a[href="#reviewPanel"]').tab('show');
-
-
-                // validaInformacoes();
-
-            } else {
-                alert(msg);
-            }
-            msg = '';
         });
-
         $('#activate').click(function (e) {
             e.preventDefault();
 
@@ -154,22 +154,26 @@ $(document).ready(function () {
         });
     });
 }
-);
-function init() {
-    carregaComboEmpresaAtividade();
-    configuraAutocompleteCidade();
 
+function inputMask() {
+    $("#cnpj").on("keyup", function (e)
+    {
+        $(this).val(
+                $(this).val()
+                .replace(/\D/g, '')
+                .replace(/^(\d{2})(\d{3})?(\d{3})?(\d{4})?(\d{2})?/, "$1.$2.$3/$4-$5"));
+    });
+
+    $("#respcpf").on("keyup", function (e)
+    {
+        $(this).val(
+                $(this).val()
+                .replace(/\D/g, '')
+                .replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "\$1.\$2.\$3\-\$4"));
+    });
 }
 
-function maskCpf() {
-    var cpf = $('#respcpf').val().replace(/\D/g, "");
-    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
-    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
-    cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-    $('#respcpf').val(cpf);
-}
-
-function TestaCPF(strCPF) {
+function validaCPF(strCPF) {
 
     var Soma;
     var Resto;
@@ -202,6 +206,64 @@ function TestaCPF(strCPF) {
     return true;
 }
 
+function valida_cnpj(valor) {
+
+    valor = valor.toString();
+    valor = valor.replace(/[^0-9]/g, '');
+    var cnpj_original = valor;
+    var primeiros_numeros_cnpj = valor.substr(0, 12);
+    var primeiro_calculo = calc_digitos_posicoes(primeiros_numeros_cnpj, 5);
+    var segundo_calculo = calc_digitos_posicoes(primeiro_calculo, 6);
+    var cnpj = segundo_calculo;
+
+
+    if (cnpj === cnpj_original) {
+        return true;
+    }
+    return false;
+
+}
+
+function calc_digitos_posicoes(digitos, posicoes = 10, soma_digitos = 0) {
+
+    digitos = digitos.toString();
+
+    // Faz a soma dos dígitos com a posição
+    // Ex. para 10 posições:
+    //   0    2    5    4    6    2    8    8   4
+    // x10   x9   x8   x7   x6   x5   x4   x3  x2
+    //   0 + 18 + 40 + 28 + 36 + 10 + 32 + 24 + 8 = 196
+    for (var i = 0; i < digitos.length; i++) {
+
+        soma_digitos = soma_digitos + (digitos[i] * posicoes);
+        posicoes--;
+        // Parte específica para CNPJ
+        // Ex.: 5-4-3-2-9-8-7-6-5-4-3-2
+        if (posicoes < 2) {
+            posicoes = 9;
+        }
+    }
+    // Captura o resto da divisão entre soma_digitos dividido por 11
+    // Ex.: 196 % 11 = 9
+    soma_digitos = soma_digitos % 11;
+
+    // Verifica se soma_digitos é menor que 2
+    if (soma_digitos < 2) {
+        // soma_digitos agora será zero
+        soma_digitos = 0;
+    } else {
+        // Se for maior que 2, o resultado é 11 menos soma_digitos
+        // Ex.: 11 - 9 = 2
+        // Nosso dígito procurado é 2
+        soma_digitos = 11 - soma_digitos;
+    }
+
+    // Concatena mais um dígito aos primeiro nove dígitos
+    // Ex.: 025462884 + 2 = 0254628842
+    var cpf = digitos + soma_digitos;
+    return cpf;
+
+}
 
 function configuraAutocompleteCidade() {
 
@@ -254,7 +316,6 @@ function configuraAutocompleteLogradouro(id_cidade) {
         }
     });
 }
-
 
 function carregaComboEmpresaAtividade() {
     var url = "http://dev.grupois.mao/sciweb/ws-sci/service/empresaAtividade/read.php";

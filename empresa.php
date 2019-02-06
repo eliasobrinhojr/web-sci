@@ -84,14 +84,14 @@
                                     <div class="modal-body">
                                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                                             <li class="nav-item">
-                                                <a class="nav-link active" data-toggle="tab" href="#infoPanel" role="tab">Informações</a>
+                                                <a class="nav-link active"  href="#infoPanel" role="tab"><b>Informações</b></a>
                                             <li>
                                             <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#ads" role="tab">Responsável</a>
+                                                <a class="nav-link"  href="#ads" role="tab"><b>Responsável</b></a>
                                             <li>
 
                                             <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#schedulePanel" role="tab">Logradouro</a>
+                                                <a class="nav-link" href="#schedulePanel" role="tab"><b>Endereço</b></a>
                                             <li>
 
                                         </ul>
@@ -99,21 +99,21 @@
                                         <div class="tab-content mt-2">
 
                                             <div class="tab-pane fade show active" id="infoPanel" role="tabpanel">
-                                                <br>
-                                                <h4>Informações</h4>
+                                                <hr>
+
                                                 <div class="form-group">
                                                     <div class="form-row">
 
                                                         <div class="col-md-6">
                                                             <div class="form-label-group">
                                                                 <input type="hidden" id="idEmp">
-                                                                <input type="text" id="cnpj" name="cnpj" class="form-control" placeholder="CNPJ" autofocus="autofocus">
+                                                                <input type="text" id="cnpj" name="cnpj" maxlength="18" class="form-control" placeholder="CNPJ" autofocus="autofocus">
                                                                 <label for="cnpj">CNPJ</label>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-label-group">
-                                                                <input type="text" id="inscrMunicipal" class="form-control" placeholder="Inscrição Municipal" required="required">
+                                                                <input type="text" id="inscrMunicipal" class="form-control" placeholder="Inscrição Municipal" >
                                                                 <label for="inscrMunicipal">Inscrição Municipal</label>
                                                             </div>
                                                         </div>
@@ -122,7 +122,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="form-label-group">
-                                                        <input type="text" id="razaoSocial" class="form-control" placeholder="Razão Social" required="required">
+                                                        <input type="text" id="razaoSocial" class="form-control" placeholder="Razão Social" >
                                                         <label for="razaoSocial">Razão Social</label>
                                                     </div>
                                                     <br>
@@ -136,18 +136,15 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-
-
                                                 </div>
 
                                                 <hr>
-                                                <button class="btn btn-secondary" id="infoContinue">Continuar</button>
+                                                <button class="btn btn-primary" id="infoContinue">Continuar</button>
                                             </div>
 
                                             <div class="tab-pane fade" id="ads" role="tabpanel">
-                                                <br>
-                                                <h4>Responsável</h4>
+                                                <hr>
+
                                                 <div class="form-group">
                                                     <div class="form-row">
 
@@ -163,7 +160,7 @@
                                                         <div class="col-md-3">
                                                             <label for="">&nbsp;</label>                                        
                                                             <div class="form-label-group">
-                                                                <input type="text" id="respcpf" class="form-control" onblur="maskCpf()" placeholder="CPF">
+                                                                <input type="text" id="respcpf" class="form-control" maxlength="14" placeholder="CPF">
                                                                 <label for="cpf">CPF</label>
                                                             </div>
 
@@ -171,11 +168,12 @@
                                                     </div>
                                                 </div>
                                                 <hr>
-                                                <button class="btn btn-secondary" id="respContinue">Continuar</button>
+                                                <button class="btn btn-secondary" id="respBack">Voltar</button>
+                                                <button class="btn btn-primary" id="respContinue">Continuar</button>
                                             </div>
 
                                             <div class="tab-pane fade" id="schedulePanel" role="tabpanel">
-                                                <br><h4>Endereço</h4>
+                                                <hr>
                                                 <div id="scheduleAccordion" class="mb-3" role="tablist" aria-multiselectable="true">
 
                                                     <div class="form-group">
@@ -222,7 +220,8 @@
 
                                                 </div>
                                                 <hr>
-                                                <button class="btn btn-secondary" id="activate">Salvar</button>
+                                                <button class="btn btn-secondary" id="logBack">Voltar</button>
+                                                <button class="btn btn-primary" id="activate">Salvar</button>
 
                                             </div>
 
