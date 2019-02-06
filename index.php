@@ -27,13 +27,13 @@
 
     <body id="page-top">
 
-        <?php include('navbar.php'); ?>
+        <?php include('corpo/navbar.php'); ?>
 
         <div id="wrapper">
 
             <!-- Sidebar -->
 
-            <?php include('sidebar.php'); ?>
+            <?php include('corpo/sidebar.php'); ?>
 
             <div id="content-wrapper">
 
@@ -44,7 +44,7 @@
                 </div>
 
 
-                <?php include('footer.php'); ?>
+                <?php include('corpo/footer.php'); ?>
 
             </div>
             <!-- /.content-wrapper -->
@@ -57,7 +57,7 @@
             <i class="fas fa-angle-up"></i>
         </a>
 
-        <?php include('logout-modal.php'); ?>
+        <?php include('corpo/logout-modal.php'); ?>
 
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>
