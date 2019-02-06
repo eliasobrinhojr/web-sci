@@ -30,25 +30,23 @@ $(document).ready(function () {
         //informacoes empresa
 
         $('#idEmp').val(data[0]);
-        $('#cnpj').val(data[1]);
+        $('#cnpj').val(data[1].replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, "\$1.\$2.\$3\/\$4\-\$5"));
         $('#inscrMunicipal').val(data[2]);
         $('#razaoSocial').val(data[3]);
 
         //responsavel
-        $('#respcpf').val(data[11]);
+        $('#respcpf').val(data[11].replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "\$1.\$2.\$3\-\$4"));
         $('#respnome').val(data[12]);
 
         //endereço
         $('#empcomplemento').val(data[8]);
         $('#logcep').val(data[5]);
 
-
-
         $('#modal').modal({
             backdrop: 'static'
         });
         $('.progress-bar').css('width', '20%');
-        $('.progress-bar').html('Passo 1 de 4');
+        $('.progress-bar').html('Passo 1 de 3');
         $('#myTab a[href="#infoPanel"]').tab('show');
 
     });
@@ -73,6 +71,8 @@ function getDataEmpresas() {
         }
     });
 }
+
+
 
 function getEmpresasNovo(empresas) {
     var url_server = "http://dev.grupois.mao/sciweb/ws-sci/service/empresa/read.php";
