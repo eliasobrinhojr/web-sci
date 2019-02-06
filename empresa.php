@@ -31,7 +31,7 @@
             th { font-size: 13px; }
             td { font-size: 12px; }
 
-            tr:hover {
+            tbody > tr:hover {
                 cursor: pointer;
                 background: #808080 !important;
             }
@@ -153,7 +153,7 @@
 
                                                             <div class="form-label-group">
                                                                 <input type="text" id="respnome" class="form-control" placeholder="Nome">
-                                                                <label for="nome">Nome</label>
+                                                                <label for="respnome">Nome</label>
                                                             </div>
 
                                                         </div>
@@ -161,7 +161,7 @@
                                                             <label for="">&nbsp;</label>                                        
                                                             <div class="form-label-group">
                                                                 <input type="text" id="respcpf" class="form-control" maxlength="14" placeholder="CPF">
-                                                                <label for="cpf">CPF</label>
+                                                                <label for="respcpf">CPF</label>
                                                             </div>
 
                                                         </div>
@@ -176,6 +176,26 @@
                                                 <hr>
                                                 <div id="scheduleAccordion" class="mb-3" role="tablist" aria-multiselectable="true">
 
+                                                    <div class="form-group">
+                                                        <div class="form-row">
+
+                                                            <div class="col-md-6">
+                                                                <label for="">CEP</label>
+
+                                                                <input id="logCep" type="text"  class="form-control" maxlength="10" /> 
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label for="">&nbsp;</label>
+                                                                <div class="form-label-group">
+                                                                    <!--<label>* Teste</label>-->
+                                                                </div>
+
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>  
                                                     <div class="form-group">
                                                         <div class="form-row">
 
@@ -203,7 +223,7 @@
                                                             <div class="col-md-6">
                                                                 <label for="">&nbsp;</label>   
                                                                 <div class="form-label-group">
-                                                                    <input type="number" id="endNumero" class="form-control" placeholder="Endereço Número" >
+                                                                    <input type="number" id="endNumero" class="form-control"  placeholder="Endereço Número" >
                                                                     <label for="endNumero">Número</label>
                                                                 </div>
                                                             </div>

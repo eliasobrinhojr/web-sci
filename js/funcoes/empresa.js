@@ -110,52 +110,55 @@ function configuraTabs() {
             var log_id = $("#logLogradouro");
             var crt = log_id.typeahead("getActive");
 
-            if (crt != undefined && formValid == true) {
 
-                var url = "http://dev.grupois.mao/sciweb/ws-sci/service/empresa/create.php";
-                $.ajax({
-                    type: 'post',
-                    dataType: 'json',
-                    url: url,
-                    data: JSON.stringify({
-                        idEmp: $('#idEmp').val(),
-                        cnpj: $('#cnpj').val(),
-                        inscMunicipal: $('#inscrMunicipal').val(),
-                        razaoSocial: $('#razaoSocial').val(),
-                        id_atividade: $('#selectAtividade').val(),
-                        numero: $('#endNumero').val(),
-                        complemento: $('#empcomplemento').val(),
-                        respNome: $('#respnome').val(),
-                        respCpf: $('#respcpf').val(),
-                        logNome: $('#lognome').val(),
-                        logId: crt.id
-                    }),
-                    success: function (dados) {
-                        getDataEmpresas();
-                        $('#modal').modal('hide');
 
-                        alert(dados.message);
-
-                        $("#reviewDiv").css({
-                            display: "none"
-                        });
-                        $("#activate").css({
-                            display: "none"
-                        });
-                    }
-                });
-            } else {
-                alert("Formulário inválido");
-                $('.progress-bar').css('width', '20%');
-                $('.progress-bar').html('Passo 1 de 3');
-                $('#myTab a[href="#infoPanel"]').tab('show');
-            }
+//            if (crt != undefined) {
+//
+//                var url = "http://dev.grupois.mao/sciweb/ws-sci/service/empresa/create.php";
+//                $.ajax({
+//                    type: 'post',
+//                    dataType: 'json',
+//                    url: url,
+//                    data: JSON.stringify({
+//                        idEmp: $('#idEmp').val(),
+//                        cnpj: $('#cnpj').val(),
+//                        inscMunicipal: $('#inscrMunicipal').val(),
+//                        razaoSocial: $('#razaoSocial').val(),
+//                        id_atividade: $('#selectAtividade').val(),
+//                        numero: $('#endNumero').val(),
+//                        complemento: $('#empcomplemento').val(),
+//                        respNome: $('#respnome').val(),
+//                        respCpf: $('#respcpf').val(),
+//                        logNome: $('#lognome').val(),
+//                        logId: crt.id
+//                    }),
+//                    success: function (dados) {
+//                        getDataEmpresas();
+//                        $('#modal').modal('hide');
+//
+//                        alert(dados.message);
+//
+//                        $("#reviewDiv").css({
+//                            display: "none"
+//                        });
+//                        $("#activate").css({
+//                            display: "none"
+//                        });
+//                    }
+//                });
+//            } else {
+//                alert("Formulário inválido");
+//                $('.progress-bar').css('width', '20%');
+//                $('.progress-bar').html('Passo 1 de 3');
+//                $('#myTab a[href="#infoPanel"]').tab('show');
+//            }
 
         });
     });
 }
 
 function inputMask() {
+
     $("#cnpj").on("keyup", function (e)
     {
         $(this).val(
@@ -170,6 +173,15 @@ function inputMask() {
                 $(this).val()
                 .replace(/\D/g, '')
                 .replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "\$1.\$2.\$3\-\$4"));
+    });
+
+
+    $("#logCep").on("keyup", function (e)
+    {
+        $(this).val(
+                $(this).val()
+                .replace(/\D/g, '')
+                .replace(/^([\d]{2})([\d]{3})([\d]{3})|^[\d]{2}.[\d]{3}-[\d]{3}/, "$1.$2-$3"));
     });
 }
 

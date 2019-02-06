@@ -40,7 +40,13 @@ $(document).ready(function () {
 
         //endereço
         $('#empcomplemento').val(data[6]);
-//        $('#logcep').val(data[5]);
+
+        $('#logCep').val(data[5].trim().replace(/^([\d]{2})([\d]{3})([\d]{3})|^[\d]{2}.[\d]{3}-[\d]{3}/, "$1.$2-$3"));
+        if ($('#logCep').val().length < 10) {
+            $("#logCep").css({
+                "border-color": "red"
+            });
+        }
 
         $('#selectAtividade').prop('selectedIndex', 0);
         $('#modal').modal({
@@ -52,6 +58,7 @@ $(document).ready(function () {
 
     });
 });
+
 
 function getDataEmpresas() {
 
