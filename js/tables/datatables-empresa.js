@@ -35,13 +35,14 @@ $(document).ready(function () {
         $('#razaoSocial').val(data[3]);
 
         //responsavel
-        $('#respcpf').val(data[11].replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "\$1.\$2.\$3\-\$4"));
-        $('#respnome').val(data[12]);
+        $('#respcpf').val(data[7].replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "\$1.\$2.\$3\-\$4"));
+        $('#respnome').val(data[8]);
 
         //endereço
-        $('#empcomplemento').val(data[8]);
-        $('#logcep').val(data[5]);
+        $('#empcomplemento').val(data[6]);
+//        $('#logcep').val(data[5]);
 
+        $('#selectAtividade').prop('selectedIndex', 0);
         $('#modal').modal({
             backdrop: 'static'
         });
@@ -112,20 +113,19 @@ function populateDataTable(data) {
     for (var i = 0; i < data.length; i++) {
         var emp = data[i];
 
-        var cdemp = emp.cdemp != null ? emp.cdemp : "",
-                cdcgc = emp.cdcgc != null ? emp.cdcgc : " ",
-                cdmun = emp.cdmun != null ? emp.cdmun : " ",
-                dsemp = emp.dsemp != null ? emp.dsemp : " ",
-                ativi = emp.ativi != null ? emp.ativi : " ",
-                cdcep = emp.cdcep != null ? emp.cdcep : " ",
-                cdtri = emp.cdtri != null ? emp.cdtri : " ",
-                compr = emp.compr != null ? emp.compr : " ",
-                ender = emp.ender != null ? emp.ender : " ",
-                nfts_sp = emp.nfts_sp != null ? emp.nfts_sp : " ",
-                cdsynchro = emp.cdsynchro != null ? emp.cdsynchro : " ",
-                resp_cpf = emp.resp_cpf != null ? emp.resp_cpf : " ",
-                responsavel = emp.responsavel != null ? emp.responsavel : " ",
-                uf = emp.uf != null ? emp.uf : " ";
+        var cdemp = emp.cdemp != null ? emp.cdemp.trim() : "",
+                cdcgc = emp.cdcgc != null ? emp.cdcgc.trim() : "",
+                cdmun = emp.cdmun != null ? emp.cdmun.trim() : "",
+                dsemp = emp.dsemp != null ? emp.dsemp.trim() : "",
+                ativi = emp.ativi != null ? emp.ativi.trim() : "",
+                cdcep = emp.cdcep != null ? emp.cdcep.trim() : "",
+                ender = emp.ender != null ? emp.ender.trim() : "",
+                resp_cpf = emp.resp_cpf != null ? emp.resp_cpf.trim() : "",
+                responsavel = emp.responsavel != null ? emp.responsavel.trim() : "",
+                uf = emp.uf != null ? emp.uf.trim() : "";
+
+
+
 
         $('#table_empresas').dataTable().fnAddData([
             cdemp,
@@ -134,11 +134,7 @@ function populateDataTable(data) {
             dsemp,
             ativi,
             cdcep,
-            cdtri,
-            compr,
             ender,
-            nfts_sp,
-            cdsynchro,
             resp_cpf,
             responsavel,
             uf

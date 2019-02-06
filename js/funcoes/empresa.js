@@ -56,6 +56,10 @@ $(document).ready(function () {
                 msg += '\nCpf Obrigatório\n';
             }
 
+            if (!TestaCPF(respCpf)) {
+                msg += "\nCPF Inválido";
+            }
+
             if (msg == '') {
                 $('.progress-bar').css('width', '100%');
                 $('.progress-bar').html('Passo 3 de 3');
@@ -63,6 +67,8 @@ $(document).ready(function () {
             } else {
                 alert(msg);
             }
+
+
             msg = '';
         });
         $('#logContinue').click(function (e) {
@@ -90,7 +96,7 @@ $(document).ready(function () {
 //                $('#myTab a[href="#reviewPanel"]').tab('show');
 
 
-               // validaInformacoes();
+                // validaInformacoes();
 
             } else {
                 alert(msg);
@@ -152,145 +158,48 @@ $(document).ready(function () {
 function init() {
     carregaComboEmpresaAtividade();
     configuraAutocompleteCidade();
- 
+
 }
 
+function maskCpf() {
+    var cpf = $('#respcpf').val().replace(/\D/g, "");
+    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+    cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+    $('#respcpf').val(cpf);
+}
+
+function TestaCPF(strCPF) {
+
+    var Soma;
+    var Resto;
+    Soma = 0;
+    strCPF = strCPF.split(".").join("");
+    strCPF = strCPF.split("-").join("");
 
 
-function validaInformacoes() {
-    $("#reviewDiv").css({
-        display: "block"
-    });
-    $("#activate").css({
-        display: "block"
-    });
+    if (strCPF == "00000000000")
+        return false;
 
-    //cnpj
-    if ($('#cnpj').val().length < 14) {
-        $("#rvcnpj").css({
-            color: "red"
-        });
-        $('#rvcnpj').html($('#cnpj').val() + ' *(14 caracteres obrigatórios)');
-        formValid = false;
-    } else {
-        $("#rvcnpj").css({
-            color: "green"
-        });
-        $('#rvcnpj').html($('#cnpj').val());
-    }
+    for (i = 1; i <= 9; i++)
+        Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+    Resto = (Soma * 10) % 11;
 
-    //inscricao municipal
-    if ($('#inscrMunicipal').val().length > 14) {
-        $("#rvIncriMunicipal").css({
-            color: "red"
-        });
-        $('#rvIncriMunicipal').html($('#inscrMunicipal').val() + ' *(Máximo 14 caracteres obrigatórios)');
-        formValid = false;
-    } else {
-        $("#rvIncriMunicipal").css({
-            color: "green"
-        });
-        $('#rvIncriMunicipal').html($('#inscrMunicipal').val());
-    }
+    if ((Resto == 10) || (Resto == 11))
+        Resto = 0;
+    if (Resto != parseInt(strCPF.substring(9, 10)))
+        return false;
 
-    //razao
-    if ($('#razaoSocial').val().length > 100) {
-        $("#rvRazaoSocial").css({
-            color: "red"
-        });
-        $('#rvRazaoSocial').html($('#razaoSocial').val() + ' *(Máximo 100 caracteres obrigatórios)');
-        formValid = false;
-    } else {
-        $("#rvRazaoSocial").css({
-            color: "green"
-        });
-        $('#rvRazaoSocial').html($('#razaoSocial').val());
-    }
+    Soma = 0;
+    for (i = 1; i <= 10; i++)
+        Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+    Resto = (Soma * 10) % 11;
 
-    //numero
-    if ($('#endNumero').val().length > 5) {
-        $("#rvNumero").css({
-            color: "red"
-        });
-        $('#rvNumero').html($('#endNumero').val() + ' *(Máximo 5 caracteres obrigatórios)');
-        formValid = false;
-    } else {
-        $("#rvNumero").css({
-            color: "green"
-        });
-        $('#rvNumero').html($('#endNumero').val());
-    }
-
-
-    //tipo atividade
-    if ($('#selectAtividade').val().length > 10) {
-        $("#rvTipoAtividade").css({
-            color: "red"
-        });
-        $('#rvTipoAtividade').html($("#selectAtividade option:selected").text() + ' *(Máximo 10 (int ID) obrigatórios)');
-        formValid = false;
-    } else {
-        $("#rvTipoAtividade").css({
-            color: "green"
-        });
-        $('#rvTipoAtividade').html($("#selectAtividade option:selected").text());
-    }
-
-    //Complemento
-    if ($('#empcomplemento').val().length > 100) {
-        $("#rvComplemento").css({
-            color: "red"
-        });
-        $('#rvComplemento').html($("#empcomplemento").val() + ' *(Máximo 100 caracteres obrigatórios)');
-        formValid = false;
-    } else {
-        $("#rvComplemento").css({
-            color: "green"
-        });
-        $('#rvComplemento').html($("#empcomplemento").val());
-    }
-
-    //Responsável nome
-    if ($('#respnome').val().length > 100) {
-        $("#rvResponsavelNome").css({
-            color: "red"
-        });
-        $('#rvResponsavelNome').html($("#respnome").val() + ' *(Máximo 100 caracteres obrigatórios)');
-        formValid = false;
-    } else {
-        $("#rvResponsavelNome").css({
-            color: "green"
-        });
-        $('#rvResponsavelNome').html($("#respnome").val());
-    }
-
-    //Responsável CPF
-    if ($('#respcpf').val().length > 14) {
-        $("#rvResponsavelCPF").css({
-            color: "red"
-        });
-        $('#rvResponsavelCPF').html($("#respcpf").val() + ' *(Máximo 14 caracteres obrigatórios)');
-        formValid = false;
-    } else {
-        $("#rvResponsavelCPF").css({
-            color: "green"
-        });
-        $('#rvResponsavelCPF').html($("#respcpf").val());
-    }
-
-    //Logradouro ID
-    if (crt.id.length > 14) {
-        $("#rvLogradouroEnd").css({
-            color: "red"
-        });
-        $('#rvLogradouroEnd').html(crt.id + ' *(Máximo 10 (ID INT) obrigatórios)');
-        formValid = false;
-    } else {
-        $("#rvLogradouroEnd").css({
-            color: "green"
-        });
-        $('#rvLogradouroEnd').html(crt.name);
-    }
+    if ((Resto == 10) || (Resto == 11))
+        Resto = 0;
+    if (Resto != parseInt(strCPF.substring(10, 11)))
+        return false;
+    return true;
 }
 
 

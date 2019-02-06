@@ -155,7 +155,7 @@
                                                             <label for="">&nbsp;</label>
 
                                                             <div class="form-label-group">
-                                                                <input type="text" id="respnome" class="form-control" placeholder="Nome" required="required">
+                                                                <input type="text" id="respnome" class="form-control" placeholder="Nome">
                                                                 <label for="nome">Nome</label>
                                                             </div>
 
@@ -163,7 +163,7 @@
                                                         <div class="col-md-3">
                                                             <label for="">&nbsp;</label>                                        
                                                             <div class="form-label-group">
-                                                                <input type="text" id="respcpf" class="form-control" placeholder="CPF" required="required">
+                                                                <input type="text" id="respcpf" class="form-control" onblur="maskCpf()" placeholder="CPF">
                                                                 <label for="cpf">CPF</label>
                                                             </div>
 
@@ -205,15 +205,15 @@
                                                             <div class="col-md-6">
                                                                 <label for="">&nbsp;</label>   
                                                                 <div class="form-label-group">
-                                                                    <input type="number" id="endNumero" class="form-control" placeholder="Endereço Número" required="required">
+                                                                    <input type="number" id="endNumero" class="form-control" placeholder="Endereço Número" >
                                                                     <label for="endNumero">Número</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label for="">&nbsp;</label>   
                                                                 <div class="form-label-group">
-                                                                    <input type="text" id="empcomplemento" class="form-control" placeholder="Complemento" required="required">
-                                                                    <label for="complemento">Complemento</label>
+                                                                    <input type="text" id="empcomplemento" class="form-control" placeholder="Complemento" >
+                                                                    <label for="empcomplemento">Complemento</label>
                                                                 </div>
 
                                                             </div>
@@ -253,18 +253,13 @@
                                 <table class="table table-bordered" id="table_empresas" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-
                                             <th>cdemp</th>
                                             <th>cdcgc</th>
                                             <th>cdmun</th>
                                             <th>dsemp</th>
                                             <th>ativi</th>
                                             <th>cdcep</th>
-                                            <th>cdtri</th>
-                                            <th>compr</th>
                                             <th>ender</th>
-                                            <th>nfts_sp</th>
-                                            <th>cdsynchro</th>
                                             <th>resp_cpf</th>
                                             <th>responsavel</th>
                                             <th>uf</th>
@@ -278,11 +273,7 @@
                                             <th>dsemp</th>
                                             <th>ativi</th>
                                             <th>cdcep</th>
-                                            <th>cdtri</th>
-                                            <th>compr</th>
                                             <th>ender</th>
-                                            <th>nfts_sp</th>
-                                            <th>cdsynchro</th>
                                             <th>resp_cpf</th>
                                             <th>responsavel</th>
                                             <th>uf</th>
