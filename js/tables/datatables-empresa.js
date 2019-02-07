@@ -41,11 +41,22 @@ $(document).ready(function () {
         //endereço
         $('#empcomplemento').val(data[6]);
 
-        $('#logCep').val(data[5].trim().replace(/^([\d]{2})([\d]{3})([\d]{3})|^[\d]{2}.[\d]{3}-[\d]{3}/, "$1.$2-$3"));
+
+        data[5] = data[5].replace('.', '');
+        data[5] = data[5].replace('-', '');
+        var strCep = data[5].replace(/^([\d]{2})([\d]{3})([\d]{3})|^[\d]{2}.[\d]{3}-[\d]{3}/, "$1.$2-$3");
+        $('#logCep').val(strCep.toString());
+
         if ($('#logCep').val().length < 10) {
             $("#logCep").css({
                 "border-color": "red"
             });
+            $("#divLoad").removeClass("loader");
+        } else if ($('#logCep').val().length == 10) {
+            $("#logCep").css({
+                "border-color": "green"
+            });
+            $("#divLoad").addClass("loader");
         }
 
         $('#selectAtividade').prop('selectedIndex', 0);
@@ -58,6 +69,7 @@ $(document).ready(function () {
 
     });
 });
+
 
 
 function getDataEmpresas() {

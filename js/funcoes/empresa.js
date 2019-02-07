@@ -78,10 +78,10 @@ function configuraTabs() {
             }
             if (respCpf.trim() == '') {
                 msg += '\nCpf Obrigatório\n';
-            }
-
-            if (!validaCPF(respCpf)) {
-                msg += "\nCPF Inválido";
+            } else {
+                if (!validaCPF(respCpf)) {
+                    msg += "\nCPF Inválido";
+                }
             }
 
             if (msg == '') {
@@ -110,7 +110,9 @@ function configuraTabs() {
             var log_id = $("#logLogradouro");
             var crt = log_id.typeahead("getActive");
 
-
+            if (validarCep($('#logCep').val())) {
+                alert('número cép inválido');
+            }
 
 //            if (crt != undefined) {
 //
@@ -182,7 +184,24 @@ function inputMask() {
                 $(this).val()
                 .replace(/\D/g, '')
                 .replace(/^([\d]{2})([\d]{3})([\d]{3})|^[\d]{2}.[\d]{3}-[\d]{3}/, "$1.$2-$3"));
+
+        if ($(this).val().length == 10) {
+            $("#logCep").css({
+                "border-color": "green"
+            });
+            $("#divLoad").addClass("loader");
+        } else if ($(this).val().length < 10) {
+            $("#logCep").css({
+                "border-color": "red"
+            });
+            $("#divLoad").removeClass("loader");
+        }
     });
+}
+
+function validarCep(cep) {
+    exp = /\d{2}\.\d{3}\-\d{3}/;
+    return !exp.test(cep) ? true : false;
 }
 
 function validaCPF(strCPF) {
