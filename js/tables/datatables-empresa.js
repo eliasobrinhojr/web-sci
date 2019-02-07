@@ -29,6 +29,9 @@ $(document).ready(function () {
 
         //informacoes empresa
 
+        $('#selectCidade').prop('disabled', true);
+        $('#selectLogradouro').prop('disabled', true);
+
         $('#idEmp').val(data[0]);
         $('#cnpj').val(data[1].replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, "\$1.\$2.\$3\/\$4\-\$5"));
         $('#inscrMunicipal').val(data[2]);
@@ -51,12 +54,26 @@ $(document).ready(function () {
             $("#logCep").css({
                 "border-color": "red"
             });
-            $("#divLoad").removeClass("loader");
+            $("#divLoad").removeClass();
+            $("#divLoad").addClass("loaderError");
+            $("#lbAlertCep").html('Número do CEP inválido!');
+            $("#lbAlertCep").css({
+                "color": "red",
+                "font-size": "15px"
+            });
+
         } else if ($('#logCep').val().length == 10) {
             $("#logCep").css({
                 "border-color": "green"
             });
+            $("#divLoad").removeClass();
             $("#divLoad").addClass("loader");
+            $("#lbAlertCep").html('Buscando...');
+            $("#lbAlertCep").css({
+                "color": "green",
+                "font-size": "15px"
+            });
+            configuraEnderecoPorCep($('#logCep').val());
         }
 
         $('#selectAtividade').prop('selectedIndex', 0);

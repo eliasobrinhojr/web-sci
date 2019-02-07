@@ -37,18 +37,33 @@
             }
 
             .loader {
-                border: 5px solid #f3f3f3; /* Light grey */
-                border-top: 5px solid #3498db; /* Blue */
+                border: 4px solid #f3f3f3; /* Light grey */
+                border-top: 4px solid #3498db; /* Blue */
                 border-radius: 50%;
-                width: 35px;
-                height: 35px;
+                width: 30px;
+                height: 30px;
                 animation: spin 2s linear infinite;
+            }
+
+            .loaderError {
+                border: 4px solid #ff0000; /* Red */
+                border-radius: 100%;
+                width: 30px;
+                height: 30px;
+            }
+            
+            .loaderSuccess {
+                border: 4px solid #00ff00; /* green */
+                border-radius: 100%;
+                width: 30px;
+                height: 30px;
             }
 
             @keyframes spin {
                 0% { transform: rotate(0deg); }
                 100% { transform: rotate(360deg); }
             }
+
 
         </style>
 
@@ -200,7 +215,7 @@
                                                             </div>
 
                                                             <div class="col-md-6">
-                                                                <label>Buscando</label>
+                                                                <h6 id="lbAlertCep">Buscando</h6>
                                                                 <div class="form-label-group">
                                                                     <div id="divLoad"></div> 
                                                                 </div>
@@ -216,14 +231,17 @@
                                                             <div class="col-md-6">
                                                                 <label for="">Cidade</label>
 
-                                                                <input id="logcidade" type="text" class="form-control typeahead" data-provide="typeahead">
+                                                                <select id="selectCidade" name="selectCidade" type="text" class="form-control" >
+
+                                                                </select>
                                                             </div>
 
                                                             <div class="col-md-6">
-                                                                <label for="">&nbsp;</label>
+                                                                <label for="">Logradouro</label>
                                                                 <div class="form-label-group">
-                                                                    <input id="logLogradouro" type="text" class="form-control" data-provide="typeahead">
-                                                                    <label for="lognome">Logradouro</label>
+                                                                    <select id="selectLogradouro" name="selectLogradouro" type="text" class="form-control">
+
+                                                                    </select>
                                                                 </div>
 
                                                             </div>
@@ -350,10 +368,6 @@
         <!-- JS file --> 
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-
-
-        <script src="js/typeahead.js"></script>
-        <script src="js/typeahead.min.js"></script>
 
         <!-- Core plugin JavaScript-->
         <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
