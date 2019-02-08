@@ -4,12 +4,11 @@ $(document).ready(function () {
 function init() {
     configuraTabs();
     carregaComboEmpresaAtividade();
-    configuraAutocompleteCidade();
     inputMask();
 
 
     $('#selectCidade').on('change', function () {
-        // carregaComboLogradouro(this.value);
+        carregaComboLogradouro(this.value);
     });
 
 }
@@ -27,7 +26,8 @@ function configuraTabs() {
         $('#infoContinue').click(function (e) {
             e.preventDefault();
             var msg = '';
-            var obj = {cnpj: $('#cnpj').val(),
+            var obj = {
+                cnpj: $('#cnpj').val(),
                 inscMunicipal: $('#inscrMunicipal').val(),
                 razaoSocial: $('#razaoSocial').val(),
                 id_atividade: $('#selectAtividade').val(),
@@ -40,8 +40,7 @@ function configuraTabs() {
             };
             if (obj.cnpj.trim() == '') {
                 msg += '\nCnpj Obrigatório\n';
-            }
-            if (!valida_cnpj(obj.cnpj.trim())) {
+            } else if (!valida_cnpj(obj.cnpj.trim())) {
                 msg += '\nCnpj Inválido\n';
             }
 
@@ -51,7 +50,8 @@ function configuraTabs() {
             if (obj.razaoSocial.trim() == '') {
                 msg += '\nRazao Social Obrigatória\n';
             }
-            if (obj.id_atividade == 0) {
+
+            if (obj.id_atividade == null || obj.id_atividade == 0) {
                 msg += '\nTipo Atividade Obrigatório\n';
             }
 
@@ -111,55 +111,65 @@ function configuraTabs() {
         });
         $('#activate').click(function (e) {
             e.preventDefault();
-
-            var log_id = $("#logLogradouro");
-            var crt = log_id.typeahead("getActive");
+            var msg = '';
+            var endNumero = 0;
+//            var log_id = $("#logLogradouro");
+//            var crt = log_id.typeahead("getActive");
 
             if (validarCep($('#logCep').val())) {
                 alert('número cép inválido');
+            } else {
+
+
+                if ($('#selectCidade').val() == null || $('#selectCidade').val() == 0) {
+                    msg += '\nCidade Obrigatória !';
+                }
+                if ($('#selectLogradouro').val() == null || $('#selectLogradouro').val() == 0) {
+                    msg += '\nLogradouro Obrigatório !';
+                }
+
+                if ($('#endNumero').val() != '') {
+                    endNumero = $('#endNumero').val();
+                }
+
+                if (msg != '') {
+                    alert(msg);
+                } else {
+                    var url = "http://dev.grupois.mao/sciweb/ws-sci/service/empresa/create.php";
+                    $.ajax({
+                        type: 'post',
+                        dataType: 'json',
+                        url: url,
+                        data: JSON.stringify({
+                            idEmp: $('#idEmp').val(),
+                            cnpj: $('#cnpj').val(),
+                            inscMunicipal: $('#inscrMunicipal').val(),
+                            razaoSocial: $('#razaoSocial').val(),
+                            id_atividade: $('#selectAtividade').val(),
+                            numero: endNumero,
+                            complemento: $('#empcomplemento').val(),
+                            respNome: $('#respnome').val(),
+                            respCpf: $('#respcpf').val(),
+                            logNome: $('#lognome').val(),
+                            logId: $('#selectLogradouro').val()
+                        }),
+                        success: function (dados) {
+                            getDataEmpresas();
+                            $('#modal').modal('hide');
+
+                            alert(dados.message);
+
+                            $("#reviewDiv").css({
+                                display: "none"
+                            });
+
+                            $('#selectCidade').html('');
+                            $('#selectLogradouro').html('');
+                        }
+                    });
+                }
+                msg = '';
             }
-
-//            if (crt != undefined) {
-//
-//                var url = "http://dev.grupois.mao/sciweb/ws-sci/service/empresa/create.php";
-//                $.ajax({
-//                    type: 'post',
-//                    dataType: 'json',
-//                    url: url,
-//                    data: JSON.stringify({
-//                        idEmp: $('#idEmp').val(),
-//                        cnpj: $('#cnpj').val(),
-//                        inscMunicipal: $('#inscrMunicipal').val(),
-//                        razaoSocial: $('#razaoSocial').val(),
-//                        id_atividade: $('#selectAtividade').val(),
-//                        numero: $('#endNumero').val(),
-//                        complemento: $('#empcomplemento').val(),
-//                        respNome: $('#respnome').val(),
-//                        respCpf: $('#respcpf').val(),
-//                        logNome: $('#lognome').val(),
-//                        logId: crt.id
-//                    }),
-//                    success: function (dados) {
-//                        getDataEmpresas();
-//                        $('#modal').modal('hide');
-//
-//                        alert(dados.message);
-//
-//                        $("#reviewDiv").css({
-//                            display: "none"
-//                        });
-//                        $("#activate").css({
-//                            display: "none"
-//                        });
-//                    }
-//                });
-//            } else {
-//                alert("Formulário inválido");
-//                $('.progress-bar').css('width', '20%');
-//                $('.progress-bar').html('Passo 1 de 3');
-//                $('#myTab a[href="#infoPanel"]').tab('show');
-//            }
-
         });
     });
 }
@@ -172,6 +182,24 @@ function inputMask() {
                 $(this).val()
                 .replace(/\D/g, '')
                 .replace(/^(\d{2})(\d{3})?(\d{3})?(\d{4})?(\d{2})?/, "$1.$2.$3/$4-$5"));
+
+        if ($(this).val().length == 18) {
+            if (!valida_cnpj($(this).val().trim())) {
+                $("#cnpj").css({
+                    "border-color": "red"
+                });
+            } else {
+                $("#cnpj").css({
+                    "border-color": "green"
+                });
+            }
+        } else {
+            $("#cnpj").css({
+                "border-color": "red"
+            });
+        }
+
+
     });
 
     $("#respcpf").on("keyup", function (e)
@@ -180,6 +208,22 @@ function inputMask() {
                 $(this).val()
                 .replace(/\D/g, '')
                 .replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "\$1.\$2.\$3\-\$4"));
+
+        if ($(this).val().length == 14) {
+            if (!validaCPF($(this).val().trim())) {
+                $("#respcpf").css({
+                    "border-color": "red"
+                });
+            } else {
+                $("#respcpf").css({
+                    "border-color": "green"
+                });
+            }
+        } else {
+            $("#respcpf").css({
+                "border-color": "red"
+            });
+        }
     });
 
 
@@ -218,6 +262,8 @@ function inputMask() {
             });
 
             $('#selectCidade').prop('disabled', true);
+            $('#selectLogradouro').prop('disabled', true);
+            $('#selectLogradouro').html('');
             $('#selectCidade').html('');
         }
     });
@@ -322,56 +368,6 @@ function calc_digitos_posicoes(digitos, posicoes = 10, soma_digitos = 0) {
 
 }
 
-function configuraAutocompleteCidade() {
-
-//    var url_local = "http://dev.grupois.mao/sciweb/ws-sci/service/cidade/read.php";
-//    $.ajax({
-//        type: 'GET',
-//        url: url_local,
-//        dataType: 'json',
-//        success: function (data) {
-//
-//            var $input = $(".typeahead");
-//            $input.typeahead({
-//                source: data.body,
-//                autoSelect: true
-//            });
-//            $input.change(function () {
-//                var current = $input.typeahead("getActive");
-//                if (current) {
-//
-//                    if (current.name == $input.val()) {
-//                        configuraAutocompleteLogradouro(current.id);
-//                    }
-//                }
-//            });
-//        }, error: function (result) {
-//            console.log(result);
-//        }
-//    });
-}
-
-function configuraAutocompleteLogradouro(id_cidade) {
-//    var url_local = "http://dev.grupois.mao/sciweb/ws-sci/service/logradouro/read.php?acao=byCidade&id_cidade=" + id_cidade;
-//
-//    $.ajax({
-//        type: 'GET',
-//        url: url_local,
-//        dataType: 'json',
-//        success: function (data) {
-//
-//
-//            $("#logLogradouro").typeahead({
-//                source: data.body,
-//                autoSelect: true
-//            });
-//
-//        }, error: function (result) {
-//            console.log(result);
-//        }
-//    });
-}
-
 function configuraEnderecoPorCep(cep) {
 
     var url_local = "http://dev.grupois.mao/sciweb/ws-sci/service/logradouro/read.php?acao=byCep&strCep=" + cep;
@@ -386,13 +382,19 @@ function configuraEnderecoPorCep(cep) {
                 $('#selectCidade').prop('disabled', false);
                 $('select[name=selectCidade]').html('');
                 $('select[name=selectCidade]').append('<option selected disabled value="0">Selecione</option>');
+
                 for (i = 0; i < data.count; i++) {
-                    $('select[name=selectCidade]').append('<option value="' + data.body[i].cidadeId + '">' + data.body[i].cidadeNome + ' (' + data.body[i].estSigla + ')</option>');
+                    if (data.count == 1) {
+                        $('select[name=selectCidade]').append('<option selected value="' + data.body[i].cidadeId + '">' + data.body[i].cidadeNome + ' (' + data.body[i].estSigla + ')</option>');
+                        carregaComboLogradouro(data.body[i].cidadeId);
+                    } else {
+                        $('select[name=selectCidade]').append('<option value="' + data.body[i].cidadeId + '">' + data.body[i].cidadeNome + ' (' + data.body[i].estSigla + ')</option>');
+
+                    }
                 }
 
-
                 $("#divLoad").addClass("loaderSuccess");
-                $("#lbAlertCep").html('Endereço Encontrado !');
+                $("#lbAlertCep").html('Endereço encontrado !');
                 $("#lbAlertCep").css({
                     "color": "green",
                     "font-size": "15px"
@@ -407,6 +409,9 @@ function configuraEnderecoPorCep(cep) {
                     "color": "red",
                     "font-size": "15px"
                 });
+
+
+                //procura no webService
             }
 
         }, error: function (result) {
@@ -416,7 +421,7 @@ function configuraEnderecoPorCep(cep) {
 }
 
 function carregaComboLogradouro(id_cidade) {
-    var url = "http://dev.grupois.mao/sciweb/ws-sci/service/logradouro/read.php?acao=byCidadeAndCep&id_cidade=" + id_cidade + "&strCep="+$('#logCep').val();
+    var url = "http://dev.grupois.mao/sciweb/ws-sci/service/logradouro/read.php?acao=byCidadeAndCep&id_cidade=" + id_cidade + "&strCep=" + $('#logCep').val();
     $.ajax({
         type: 'GET',
         url: url,
@@ -424,10 +429,17 @@ function carregaComboLogradouro(id_cidade) {
         success: function (data) {
 
             $('#selectLogradouro').prop('disabled', false);
-
+            $('select[name=selectLogradouro]').html('');
             $('select[name=selectLogradouro]').append('<option selected disabled value="0">Selecione</option>');
+
             for (i = 0; i < data.count; i++) {
-                $('select[name=selectLogradouro]').append('<option value="' + data.body[i].id + '">' + data.body[i].name + ')</option>');
+
+                if (data.count == 1) {
+                    $('select[name=selectLogradouro]').append('<option selected value="' + data.body[i].logId + '">' + data.body[i].logNome + ')</option>');
+                } else {
+                    $('select[name=selectLogradouro]').append('<option value="' + data.body[i].logId + '">' + data.body[i].logNome + ')</option>');
+
+                }
             }
 
 
