@@ -401,18 +401,72 @@ function configuraEnderecoPorCep(cep) {
                 });
 
             } else {
-                $('#selectCidade').prop('disabled', true);
+//procura no webService
+                buscaViaCep(cep);
 
-                $("#divLoad").addClass("loaderError");
-                $("#lbAlertCep").html('Nenhum endereço encontrado!');
-                $("#lbAlertCep").css({
-                    "color": "red",
-                    "font-size": "15px"
-                });
+//                $('#selectCidade').prop('disabled', true);
+//
+//                $("#divLoad").addClass("loaderError");
+//                $("#lbAlertCep").html('Nenhum endereço encontrado!');
+//                $("#lbAlertCep").css({
+//                    "color": "red",
+//                    "font-size": "15px"
+//                });
 
 
-                //procura no webService
+
             }
+
+        }, error: function (result) {
+            console.log(result);
+        }
+    });
+}
+
+function buscaViaCep(cep) {
+
+    var strCep = cep.replace('.', '');
+    strCep = strCep.replace('-', '');
+
+    var url_via_cep = "https://viacep.com.br/ws/" + strCep + "/json/";
+    $.ajax({
+        type: 'GET',
+        url: url_via_cep,
+        dataType: 'json',
+        success: function (data) {
+
+
+
+            var obj = {
+                logNome: data["logradouro"],
+                logCEP: data["cep"],
+                logComplemento: data["complemento"],
+                cidIdCidade: 0,
+                cidadeNome: data["localidade"],
+                uf: data["uf"]
+            };
+
+            //faz o post ao retornar 200, busca interno novamente  e carrega formulário
+            insertLogradouro(obj);
+
+
+        }, error: function (result) {
+            console.log(result);
+        }
+    });
+}
+
+function insertLogradouro(obj) {
+    var url = "http://dev.grupois.mao/sciweb/ws-sci/service/logradouro/create.php";
+    $.ajax({
+        type: 'post',
+        dataType: 'json',
+        url: url,
+        data: JSON.stringify(obj),
+        success: function (data) {
+
+            console.log(data);
+            configuraEnderecoPorCep(obj.logCEP);
 
         }, error: function (result) {
             console.log(result);
@@ -437,7 +491,7 @@ function carregaComboLogradouro(id_cidade) {
                 if (data.count == 1) {
                     $('select[name=selectLogradouro]').append('<option selected value="' + data.body[i].logId + '">' + data.body[i].logNome + ')</option>');
                 } else {
-                    $('select[name=selectLogradouro]').append('<option value="' + data.body[i].logId + '">' + data.body[i].logNome + ')</option>');
+                    $('select[name=selectLogradouro]').append('<option value="' + data.body[i].logId + '">' + data.body[i].logNome + '</option>');
 
                 }
             }
