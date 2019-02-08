@@ -51,7 +51,7 @@
                 width: 30px;
                 height: 30px;
             }
-            
+
             .loaderSuccess {
                 border: 4px solid #00ff00; /* green */
                 border-radius: 100%;
@@ -304,30 +304,30 @@
                                 <table class="table table-bordered" id="table_empresas" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>cdemp</th>
-                                            <th>cdcgc</th>
-                                            <th>cdmun</th>
-                                            <th>dsemp</th>
-                                            <th>ativi</th>
-                                            <th>cdcep</th>
-                                            <th>ender</th>
-                                            <th>resp_cpf</th>
-                                            <th>responsavel</th>
-                                            <th>uf</th>
+                                            <th>Código</th>
+                                            <th>CNPJ</th>
+                                            <th>Inscr. Municipal</th>
+                                            <th>Razão Social</th>
+                                            <th>Atividade</th>
+                                            <th>CEP</th>
+                                            <th>Endereço</th>
+                                            <th>Resp. CPF</th>
+                                            <th>Resp. Nome</th>
+                                            <th>UF</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>cdemp</th>
-                                            <th>cdcgc</th>
-                                            <th>cdmun</th>
-                                            <th>dsemp</th>
-                                            <th>ativi</th>
-                                            <th>cdcep</th>
-                                            <th>ender</th>
-                                            <th>resp_cpf</th>
-                                            <th>responsavel</th>
-                                            <th>uf</th>
+                                            <th>Código</th>
+                                            <th>CNPJ</th>
+                                            <th>Inscr. Municipal</th>
+                                            <th>Razão Social</th>
+                                            <th>Atividade</th>
+                                            <th>CEP</th>
+                                            <th>Endereço</th>
+                                            <th>Resp. CPF</th>
+                                            <th>Resp. Nome</th>
+                                            <th>UF</th>
                                         </tr>
                                     </tfoot>
                                     <tbody id="linhas_empresa">

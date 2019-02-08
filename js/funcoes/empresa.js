@@ -113,8 +113,6 @@ function configuraTabs() {
             e.preventDefault();
             var msg = '';
             var endNumero = 0;
-//            var log_id = $("#logLogradouro");
-//            var crt = log_id.typeahead("getActive");
 
             if (validarCep($('#logCep').val())) {
                 alert('número cép inválido');
@@ -131,10 +129,14 @@ function configuraTabs() {
                 if ($('#endNumero').val() != '') {
                     endNumero = $('#endNumero').val();
                 }
+                if ($('#idEmp').val() == '') {
+                    msg += 'Código Empresa Inválido, contate o suporte !!';
+                }
 
                 if (msg != '') {
                     alert(msg);
                 } else {
+
                     var url = "http://dev.grupois.mao/sciweb/ws-sci/service/empresa/create.php";
                     $.ajax({
                         type: 'post',
@@ -489,7 +491,7 @@ function carregaComboLogradouro(id_cidade) {
             for (i = 0; i < data.count; i++) {
 
                 if (data.count == 1) {
-                    $('select[name=selectLogradouro]').append('<option selected value="' + data.body[i].logId + '">' + data.body[i].logNome + ')</option>');
+                    $('select[name=selectLogradouro]').append('<option selected value="' + data.body[i].logId + '">' + data.body[i].logNome + '</option>');
                 } else {
                     $('select[name=selectLogradouro]').append('<option value="' + data.body[i].logId + '">' + data.body[i].logNome + '</option>');
 

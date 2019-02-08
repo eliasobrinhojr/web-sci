@@ -27,18 +27,56 @@ $(document).ready(function () {
 
         var data = table.row(this).data();
 
-        //informacoes empresa
 
+        $('#selectCidade').html('');
+        $('#selectLogradouro').html('');
         $('#selectCidade').prop('disabled', true);
         $('#selectLogradouro').prop('disabled', true);
+        $('#endNumero').val('');
+        $('#empcomplemento').val('')
 
+        
         $('#idEmp').val(data[0]);
         $('#cnpj').val(data[1].replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, "\$1.\$2.\$3\/\$4\-\$5"));
+        if ($('#cnpj').val().length == 18) {
+            if (!valida_cnpj($('#cnpj').val().trim())) {
+                $("#cnpj").css({
+                    "border-color": "red"
+                });
+            } else {
+                $("#cnpj").css({
+                    "border-color": "green"
+                });
+            }
+        } else {
+            $("#cnpj").css({
+                "border-color": "red"
+            });
+        }
+
+
         $('#inscrMunicipal').val(data[2]);
         $('#razaoSocial').val(data[3]);
 
         //responsavel
         $('#respcpf').val(data[7].replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "\$1.\$2.\$3\-\$4"));
+        if ($('#respcpf').val().length == 14) {
+            if (!validaCPF($('#respcpf').val().trim())) {
+                $("#respcpf").css({
+                    "border-color": "red"
+                });
+            } else {
+                $("#respcpf").css({
+                    "border-color": "green"
+                });
+            }
+        } else {
+            $("#respcpf").css({
+                "border-color": "red"
+            });
+        }
+
+
         $('#respnome').val(data[8]);
 
         //endereço
@@ -148,8 +186,8 @@ function populateDataTable(data) {
 
     for (var i = 0; i < data.length; i++) {
         var emp = data[i];
-
-        var cdemp = emp.cdemp != null ? emp.cdemp.trim() : "",
+        
+        var cdemp = emp.cdtri != null ? emp.cdtri.trim() : "",
                 cdcgc = emp.cdcgc != null ? emp.cdcgc.trim() : "",
                 cdmun = emp.cdmun != null ? emp.cdmun.trim() : "",
                 dsemp = emp.dsemp != null ? emp.dsemp.trim() : "",
