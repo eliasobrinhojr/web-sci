@@ -129,7 +129,6 @@ $(document).ready(function () {
 
 function getDataEmpresas() {
 
-    var url_local = "http://localhost:8080/ws-ssp/empresas";
     var url_server = "http://dev.grupois.mao:8080/ws-informix/empresas";
 
     $.ajax({
@@ -150,7 +149,7 @@ function getDataEmpresas() {
 
 
 function getEmpresasNovo(empresas) {
-    var url_server = "http://dev.grupois.mao/sciweb/ws-sci/service/empresa/read.php";
+    var url_server = "http://dev.grupois.mao/sciweb/ws-sci/service/empresa/empresa/read.php";
 
     $.ajax({
         type: 'get',

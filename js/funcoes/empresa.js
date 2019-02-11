@@ -137,7 +137,7 @@ function configuraTabs() {
                     alert(msg);
                 } else {
 
-                    var url = "http://dev.grupois.mao/sciweb/ws-sci/service/empresa/create.php";
+                    var url = "http://dev.grupois.mao/sciweb/ws-sci/service/empresa/empresa/create.php";
                     $.ajax({
                         type: 'post',
                         dataType: 'json',
@@ -372,7 +372,7 @@ function calc_digitos_posicoes(digitos, posicoes = 10, soma_digitos = 0) {
 
 function configuraEnderecoPorCep(cep) {
 
-    var url_local = "http://dev.grupois.mao/sciweb/ws-sci/service/logradouro/read.php?acao=byCep&strCep=" + cep;
+    var url_local = "http://dev.grupois.mao/sciweb/ws-sci/service/enderecamento/logradouro/read.php?acao=byCep&strCep=" + cep;
     $.ajax({
         type: 'GET',
         url: url_local,
@@ -459,7 +459,7 @@ function buscaViaCep(cep) {
 }
 
 function insertLogradouro(obj) {
-    var url = "http://dev.grupois.mao/sciweb/ws-sci/service/logradouro/create.php";
+    var url = "http://dev.grupois.mao/sciweb/ws-sci/service/enderecamento/logradouro/create.php";
     $.ajax({
         type: 'post',
         dataType: 'json',
@@ -477,7 +477,7 @@ function insertLogradouro(obj) {
 }
 
 function carregaComboLogradouro(id_cidade) {
-    var url = "http://dev.grupois.mao/sciweb/ws-sci/service/logradouro/read.php?acao=byCidadeAndCep&id_cidade=" + id_cidade + "&strCep=" + $('#logCep').val();
+    var url = "http://dev.grupois.mao/sciweb/ws-sci/service/enderecamento/logradouro/read.php?acao=byCidadeAndCep&id_cidade=" + id_cidade + "&strCep=" + $('#logCep').val();
     $.ajax({
         type: 'GET',
         url: url,
@@ -508,7 +508,7 @@ function carregaComboLogradouro(id_cidade) {
 
 
 function carregaComboEmpresaAtividade() {
-    var url = "http://dev.grupois.mao/sciweb/ws-sci/service/empresaAtividade/read.php";
+    var url = "http://dev.grupois.mao/sciweb/ws-sci/service/empresa/empresaAtividade/read.php";
     $.ajax({
         type: 'GET',
         url: url,
