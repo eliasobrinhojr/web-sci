@@ -269,8 +269,6 @@ function inputMask() {
     });
 }
 
-
-
 function validarCep(cep) {
     exp = /\d{2}\.\d{3}\-\d{3}/;
     return !exp.test(cep) ? true : false;
@@ -509,6 +507,3 @@ function carregaComboEmpresaAtividade() {
         }
     });
 }
-
-
-
