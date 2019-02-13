@@ -161,20 +161,46 @@
                                     <div class="card mb-3">
                                         <div class="card-header">
                                             <i class="fas fa-table"></i>
-                                            <label id="lbPrestadores">Prestadores SSP</label></div>
+                                            <label id="lbFornecedores">Fornecedores CASS</label></div>
                                         <div class="card-body">
                                             <div class="table-responsive">
                                                 <table class="table table-bordered" id="table_fornecedores" width="100%" cellspacing="0">
                                                     <thead>
                                                         <tr>
-                                                            <th>cdpre</th>
-                                                            <th>cdirf</th>
+                                                            <th>forcod</th>
+                                                            <th>forpjf</th>
+                                                            <th>forcnpjcpf</th>
+                                                            <th>forbai</th>
+                                                            <th>fornome</th>
+                                                            <th>formun</th>
+                                                            <th>forend</th>
+                                                            <th>forcep</th>
+                                                            <th>foruf</th>
+                                                            <th>forfone</th>
+                                                            <th>forfax</th>
+                                                            <th>foremail</th>
+                                                            <th>esrcod</th>
+                                                            <th>fornum</th>
+                                                            <th>muncod</th>
                                                         </tr>
                                                     </thead>
                                                     <tfoot>
                                                         <tr>
-                                                            <th>cdpre</th>
-                                                            <th>cdirf</th>
+                                                            <th>forcod</th>
+                                                            <th>forpjf</th>
+                                                            <th>forcnpjcpf</th>
+                                                            <th>forbai</th>
+                                                            <th>fornome</th>
+                                                            <th>formun</th>
+                                                            <th>forend</th>
+                                                            <th>forcep</th>
+                                                            <th>foruf</th>
+                                                            <th>forfone</th>
+                                                            <th>forfax</th>
+                                                            <th>foremail</th>
+                                                            <th>esrcod</th>
+                                                            <th>fornum</th>
+                                                            <th>muncod</th>
                                                         </tr>
                                                     </tfoot>
                                                     <tbody>
@@ -228,6 +254,7 @@
 
         <!-- Demo scripts for this page-->
         <script src="js/tables/datatables-prestador.js"></script>
+        <script src="js/tables/datatables-fornecedor.js"></script>
         <script src="js/funcoes/fornecedor.js"></script>
     </body>
 

@@ -82,7 +82,7 @@ function configuraTabs() {
                 msg += '\nNome Obrigatório\n';
             }
             if (respCpf.trim() == '') {
-                msg += '\nCpf Obrigatório\n';
+                msg += '\nCPF Obrigatório\n';
             } else {
                 if (!validaCPF(respCpf)) {
                     msg += "\nCPF Inválido";
@@ -130,7 +130,7 @@ function configuraTabs() {
                     endNumero = $('#endNumero').val();
                 }
                 if ($('#idEmp').val() == '') {
-                    msg += 'Código Empresa Inválido, contate o suporte !!';
+                    msg += 'Código Empresa Inválido !!';
                 }
 
                 if (msg != '') {
@@ -405,17 +405,6 @@ function configuraEnderecoPorCep(cep) {
             } else {
 //procura no webService
                 buscaViaCep(cep);
-
-//                $('#selectCidade').prop('disabled', true);
-//
-//                $("#divLoad").addClass("loaderError");
-//                $("#lbAlertCep").html('Nenhum endereço encontrado!');
-//                $("#lbAlertCep").css({
-//                    "color": "red",
-//                    "font-size": "15px"
-//                });
-
-
 
             }
 

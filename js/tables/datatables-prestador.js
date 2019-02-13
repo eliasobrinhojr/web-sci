@@ -2,7 +2,9 @@
 $(document).ready(function () {
 
     var table = $('#table_prestadores').DataTable({
-        "bProcessing": true,
+
+        "processing": true,
+        "paging": true,
         "scrollX": true,
         "language": {
             "lengthMenu": "_MENU_ registros por página",
@@ -47,7 +49,7 @@ function getDataPrestadores() {
 function populateDataTable(data) {
     $("#table_prestadores").DataTable().clear();
     $("#lbPrestadores").html('Prestadores (' + data.length + ")");
-    for (var i = 0; i < 50; i++) {
+    for (var i = 0; i < data.length; i++) {
         var forn = data[i];
 
 
