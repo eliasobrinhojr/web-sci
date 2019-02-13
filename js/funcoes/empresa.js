@@ -15,7 +15,7 @@ function init() {
 
 function configuraTabs() {
     $(function () {
-        var formValid = true;
+
         $('#modalToggle').click(function () {
             $('#modal').modal({
                 backdrop: 'static'
@@ -41,14 +41,14 @@ function configuraTabs() {
             if (obj.cnpj.trim() == '') {
                 msg += '\nCnpj Obrigatório\n';
             } else if (!valida_cnpj(obj.cnpj.trim())) {
-                msg += '\nCnpj Inválido\n';
+                msg += '\nCNPJ Inválido\n';
             }
 
             if (obj.inscMunicipal.trim() == '') {
                 msg += '\nIncrição Municipal Obrigatória\n';
             }
             if (obj.razaoSocial.trim() == '') {
-                msg += '\nRazao Social Obrigatória\n';
+                msg += '\nRazão Social Obrigatória\n';
             }
 
             if (obj.id_atividade == null || obj.id_atividade == 0) {
@@ -157,14 +157,12 @@ function configuraTabs() {
                         }),
                         success: function (dados) {
                             getDataEmpresas();
+
                             $('#modal').modal('hide');
-
                             alert(dados.message);
-
                             $("#reviewDiv").css({
                                 display: "none"
                             });
-
                             $('#selectCidade').html('');
                             $('#selectLogradouro').html('');
                         }
@@ -332,14 +330,12 @@ function valida_cnpj(valor) {
 function calc_digitos_posicoes(digitos, posicoes = 10, soma_digitos = 0) {
 
     digitos = digitos.toString();
-
     // Faz a soma dos dígitos com a posição
     // Ex. para 10 posições:
     //   0    2    5    4    6    2    8    8   4
     // x10   x9   x8   x7   x6   x5   x4   x3  x2
     //   0 + 18 + 40 + 28 + 36 + 10 + 32 + 24 + 8 = 196
     for (var i = 0; i < digitos.length; i++) {
-
         soma_digitos = soma_digitos + (digitos[i] * posicoes);
         posicoes--;
         // Parte específica para CNPJ
@@ -493,8 +489,6 @@ function carregaComboLogradouro(id_cidade) {
         }
     });
 }
-
-
 
 function carregaComboEmpresaAtividade() {
     var url = "http://dev.grupois.mao/sciweb/ws-sci/service/empresa/empresaAtividade/read.php";
