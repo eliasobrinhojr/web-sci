@@ -76,9 +76,6 @@
                                             <li class="nav-item">
                                                 <a class="nav-link active"  href="#infoPanel" role="tab"><b>Informações</b></a>
                                             <li>
-                                            <li class="nav-item">
-                                                <a class="nav-link"  href="#ads" role="tab"><b>Responsável</b></a>
-                                            <li>
 
                                             <li class="nav-item">
                                                 <a class="nav-link" href="#schedulePanel" role="tab"><b>Endereço</b></a>
@@ -94,37 +91,28 @@
                                                 <div class="form-group">
                                                     <div class="form-row">
 
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-6"> 
                                                             <div class="form-label-group">
-                                                                <input type="hidden" id="idEmp">
-                                                                <input type="text" id="cnpj" name="cnpj" maxlength="18" class="form-control" placeholder="CNPJ" autofocus="autofocus">
-                                                                <label for="cnpj">CNPJ</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-label-group">
-                                                                <input type="text" id="inscrMunicipal" class="form-control" placeholder="Inscrição Municipal" >
-                                                                <label for="inscrMunicipal">Inscrição Municipal</label>
+                                                                <input type="text" id="cpfcnpj" name="cpfcnpj" maxlength="18" class="form-control" placeholder="CPF ou CNPJ" autofocus="autofocus">
+                                                                <label for="cpfcnpj">CPF ou CNPJ</label>
                                                             </div>
                                                         </div>
 
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <div class="form-label-group">
-                                                        <input type="text" id="razaoSocial" class="form-control" placeholder="Razão Social" >
-                                                        <label for="razaoSocial">Razão Social</label>
-                                                    </div>
-                                                    <br>
+                                                    <div class="form-row">
 
-                                                    <div class="form-group">
-                                                        <div class="form-row">
-                                                            <div class="col-md-6">
-                                                                <label for="Atividade">Atividade</label>
-                                                                <select required id="selectAtividade" name="selectAtividade" class="form-control">
-                                                                </select>
+                                                        <div class="col-md-6">
+                                                            <label for="">&nbsp;</label>
+
+                                                            <div class="form-label-group">
+                                                                <input type="text" id="inss" class="form-control" placeholder="INSS">
+                                                                <label for="inss">INSS</label>
                                                             </div>
+
                                                         </div>
+                                         
                                                     </div>
                                                 </div>
 
@@ -132,35 +120,6 @@
                                                 <button class="btn btn-primary" id="infoContinue">Continuar</button>
                                             </div>
 
-                                            <div class="tab-pane fade" id="ads" role="tabpanel">
-                                                <hr>
-
-                                                <div class="form-group">
-                                                    <div class="form-row">
-
-                                                        <div class="col-md-3">
-                                                            <label for="">&nbsp;</label>
-
-                                                            <div class="form-label-group">
-                                                                <input type="text" id="respnome" class="form-control" placeholder="Nome">
-                                                                <label for="respnome">Nome</label>
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <label for="">&nbsp;</label>                                        
-                                                            <div class="form-label-group">
-                                                                <input type="text" id="respcpf" class="form-control" maxlength="14" placeholder="CPF">
-                                                                <label for="respcpf">CPF</label>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <button class="btn btn-secondary" id="respBack">Voltar</button>
-                                                <button class="btn btn-primary" id="respContinue">Continuar</button>
-                                            </div>
 
                                             <div class="tab-pane fade" id="schedulePanel" role="tabpanel">
                                                 <hr>

@@ -25,7 +25,7 @@ $(document).ready(function () {
     $('#table_prestadores tbody').on('click', 'tr', function () {
 
         var data = table.row(this).data();
-        console.log(data);
+        console.log(data[3]);
         
         $('#modal').modal({
             backdrop: 'static'
