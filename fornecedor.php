@@ -60,6 +60,198 @@
                         <li class="breadcrumb-item active">Fornecedores</li>
                     </ol>
 
+                    <div class="container">
+
+                        <div id="modal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="wizard-title">Formulário Empresa</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active"  href="#infoPanel" role="tab"><b>Informações</b></a>
+                                            <li>
+                                            <li class="nav-item">
+                                                <a class="nav-link"  href="#ads" role="tab"><b>Responsável</b></a>
+                                            <li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#schedulePanel" role="tab"><b>Endereço</b></a>
+                                            <li>
+
+                                        </ul>
+
+                                        <div class="tab-content mt-2">
+
+                                            <div class="tab-pane fade show active" id="infoPanel" role="tabpanel">
+                                                <hr>
+
+                                                <div class="form-group">
+                                                    <div class="form-row">
+
+                                                        <div class="col-md-6">
+                                                            <div class="form-label-group">
+                                                                <input type="hidden" id="idEmp">
+                                                                <input type="text" id="cnpj" name="cnpj" maxlength="18" class="form-control" placeholder="CNPJ" autofocus="autofocus">
+                                                                <label for="cnpj">CNPJ</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-label-group">
+                                                                <input type="text" id="inscrMunicipal" class="form-control" placeholder="Inscrição Municipal" >
+                                                                <label for="inscrMunicipal">Inscrição Municipal</label>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="text" id="razaoSocial" class="form-control" placeholder="Razão Social" >
+                                                        <label for="razaoSocial">Razão Social</label>
+                                                    </div>
+                                                    <br>
+
+                                                    <div class="form-group">
+                                                        <div class="form-row">
+                                                            <div class="col-md-6">
+                                                                <label for="Atividade">Atividade</label>
+                                                                <select required id="selectAtividade" name="selectAtividade" class="form-control">
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+                                                <button class="btn btn-primary" id="infoContinue">Continuar</button>
+                                            </div>
+
+                                            <div class="tab-pane fade" id="ads" role="tabpanel">
+                                                <hr>
+
+                                                <div class="form-group">
+                                                    <div class="form-row">
+
+                                                        <div class="col-md-3">
+                                                            <label for="">&nbsp;</label>
+
+                                                            <div class="form-label-group">
+                                                                <input type="text" id="respnome" class="form-control" placeholder="Nome">
+                                                                <label for="respnome">Nome</label>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label for="">&nbsp;</label>                                        
+                                                            <div class="form-label-group">
+                                                                <input type="text" id="respcpf" class="form-control" maxlength="14" placeholder="CPF">
+                                                                <label for="respcpf">CPF</label>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <button class="btn btn-secondary" id="respBack">Voltar</button>
+                                                <button class="btn btn-primary" id="respContinue">Continuar</button>
+                                            </div>
+
+                                            <div class="tab-pane fade" id="schedulePanel" role="tabpanel">
+                                                <hr>
+                                                <div id="scheduleAccordion" class="mb-3" role="tablist" aria-multiselectable="true">
+
+                                                    <div class="form-group">
+                                                        <div class="form-row">
+
+                                                            <div class="col-md-6">
+                                                                <label for="">CEP</label>
+
+                                                                <input id="logCep" type="text"  class="form-control" maxlength="10" /> 
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <h6 id="lbAlertCep">Buscando</h6>
+                                                                <div class="form-label-group">
+                                                                    <div id="divLoad"></div> 
+                                                                </div>
+
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>  
+                                                    <div class="form-group">
+                                                        <div class="form-row">
+
+                                                            <div class="col-md-6">
+                                                                <label for="">Cidade</label>
+
+                                                                <select id="selectCidade" name="selectCidade" type="text" class="form-control" >
+
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label for="">Logradouro</label>
+                                                                <div class="form-label-group">
+                                                                    <select id="selectLogradouro" name="selectLogradouro" type="text" class="form-control">
+
+                                                                    </select>
+                                                                </div>
+
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>  
+
+                                                    <div class="form-group">
+                                                        <div class="form-row">
+                                                            <div class="col-md-6">
+                                                                <label for="">&nbsp;</label>   
+                                                                <div class="form-label-group">
+                                                                    <input type="number" id="endNumero" class="form-control"  placeholder="Endereço Número" >
+                                                                    <label for="endNumero">Número</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="">&nbsp;</label>   
+                                                                <div class="form-label-group">
+                                                                    <input type="text" id="empcomplemento" class="form-control" placeholder="Complemento" >
+                                                                    <label for="empcomplemento">Complemento</label>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <hr>
+                                                <button class="btn btn-secondary" id="logBack">Voltar</button>
+                                                <button class="btn btn-primary" id="activate">Salvar</button>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="progress mt-5">
+                                            <div class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Passo 1 de 3</div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <div id="accordion">
                         <div class="card">

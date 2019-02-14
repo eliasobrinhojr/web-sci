@@ -26,6 +26,10 @@ $(document).ready(function () {
 
         var data = table.row(this).data();
         console.log(data);
+        
+        $('#modal').modal({
+            backdrop: 'static'
+        });
     });
 });
 function getDataPrestadores() {
