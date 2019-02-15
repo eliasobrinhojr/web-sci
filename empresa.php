@@ -382,7 +382,7 @@
 
         <!-- Demo scripts for this page-->
         <script src="js/tables/datatables-empresa.js"></script>
-
+        <script src="js/funcoes/validarCnpjCpfCep.js"></script>
         <script src="js/funcoes/empresa.js"></script>
 
 

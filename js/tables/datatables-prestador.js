@@ -25,8 +25,47 @@ $(document).ready(function () {
     $('#table_prestadores tbody').on('click', 'tr', function () {
 
         var data = table.row(this).data();
-        console.log(data[3]);
+        console.log(data[2].trim());
         
+        $('#forTipo').val(data[2].trim());
+        
+
+        if (data[3].trim().length == 11) {
+            $('#cpfcnpj').val(data[3].trim().replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "\$1.\$2.\$3\-\$4"));
+            if (!validaCPF($('#cpfcnpj').val().trim())) {
+                $("#cpfcnpj").css({
+                    "border-color": "red"
+                });
+            } else {
+                $("#cpfcnpj").css({
+                    "border-color": "green"
+                });
+            }
+        } else {
+            $("#cpfcnpj").css({
+                "border-color": "red"
+            });
+        }
+
+        if (data[3].length == 14) {
+            $('#cpfcnpj').val(data[3].replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, "\$1.\$2.\$3\/\$4\-\$5"));
+            if (!valida_cnpj($('#cpfcnpj').val().trim())) {
+                $("#cpfcnpj").css({
+                    "border-color": "red"
+                });
+            } else {
+                $("#cpfcnpj").css({
+                    "border-color": "green"
+                });
+            }
+        } else {
+            $("#cpfcnpj").css({
+                "border-color": "red"
+            });
+        }
+
+
+
         $('#modal').modal({
             backdrop: 'static'
         });

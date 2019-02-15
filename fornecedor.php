@@ -93,6 +93,7 @@
 
                                                         <div class="col-md-6"> 
                                                             <div class="form-label-group">
+                                                                <input type="hidden" name="forTipo" id="forTipo"/>
                                                                 <input type="text" id="cpfcnpj" name="cpfcnpj" maxlength="18" class="form-control" placeholder="CPF ou CNPJ" autofocus="autofocus">
                                                                 <label for="cpfcnpj">CPF ou CNPJ</label>
                                                             </div>
@@ -405,6 +406,7 @@
         <script src="js/sb-admin.min.js"></script>
 
         <!-- Demo scripts for this page-->
+         <script src="js/funcoes/validarCnpjCpfCep.js"></script>
         <script src="js/tables/datatables-prestador.js"></script>
         <script src="js/tables/datatables-fornecedor.js"></script>
         <script src="js/funcoes/fornecedor.js"></script>
