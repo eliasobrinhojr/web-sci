@@ -32,6 +32,34 @@
                 background: #808080 !important;
             }
 
+            .loader {
+                border: 4px solid #f3f3f3; /* Light grey */
+                border-top: 4px solid #3498db; /* Blue */
+                border-radius: 50%;
+                width: 30px;
+                height: 30px;
+                animation: spin 2s linear infinite;
+            }
+
+            .loaderError {
+                border: 4px solid #ff0000; /* Red */
+                border-radius: 100%;
+                width: 30px;
+                height: 30px;
+            }
+
+            .loaderSuccess {
+                border: 4px solid #00ff00; /* green */
+                border-radius: 100%;
+                width: 30px;
+                height: 30px;
+            }
+
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+
 
         </style>
 
@@ -94,8 +122,8 @@
                                                         <div class="col-md-6"> 
                                                             <div class="form-label-group">
                                                                 <input type="hidden" name="forTipo" id="forTipo"/>
-                                                                <input type="text" id="cpfcnpj" name="cpfcnpj" maxlength="18" class="form-control" placeholder="CPF ou CNPJ" autofocus="autofocus">
-                                                                <label for="cpfcnpj">CPF ou CNPJ</label>
+                                                                <input type="text" id="cpfcnpj" name="cpfcnpj" maxlength="18" class="form-control" autofocus="autofocus">
+                                                                <label id="lbcpfcnpj" for="cpfcnpj">CPF ou CNPJ</label>
                                                             </div>
                                                         </div>
 
@@ -113,7 +141,7 @@
                                                             </div>
 
                                                         </div>
-                                         
+
                                                     </div>
                                                 </div>
 
@@ -183,8 +211,8 @@
                                                             <div class="col-md-6">
                                                                 <label for="">&nbsp;</label>   
                                                                 <div class="form-label-group">
-                                                                    <input type="text" id="empcomplemento" class="form-control" placeholder="Complemento" >
-                                                                    <label for="empcomplemento">Complemento</label>
+                                                                    <input type="text" id="forcomplemento" class="form-control" placeholder="Complemento" >
+                                                                    <label for="forcomplemento">Complemento</label>
                                                                 </div>
 
                                                             </div>
@@ -406,7 +434,7 @@
         <script src="js/sb-admin.min.js"></script>
 
         <!-- Demo scripts for this page-->
-         <script src="js/funcoes/validarCnpjCpfCep.js"></script>
+        <script src="js/funcoes/validarCnpjCpfCep.js"></script>
         <script src="js/tables/datatables-prestador.js"></script>
         <script src="js/tables/datatables-fornecedor.js"></script>
         <script src="js/funcoes/fornecedor.js"></script>

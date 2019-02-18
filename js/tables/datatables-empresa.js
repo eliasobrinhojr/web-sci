@@ -33,9 +33,9 @@ $(document).ready(function () {
         $('#selectCidade').prop('disabled', true);
         $('#selectLogradouro').prop('disabled', true);
         $('#endNumero').val('');
-        $('#empcomplemento').val('')
+        $('#empcomplemento').val('');
 
-        
+
         $('#idEmp').val(data[0]);
         $('#cnpj').val(data[1].replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, "\$1.\$2.\$3\/\$4\-\$5"));
         if ($('#cnpj').val().length == 18) {
@@ -88,17 +88,9 @@ $(document).ready(function () {
         var strCep = data[5].replace(/^([\d]{2})([\d]{3})([\d]{3})|^[\d]{2}.[\d]{3}-[\d]{3}/, "$1.$2-$3");
         $('#logCep').val(strCep.toString());
 
+
         if ($('#logCep').val().length < 10) {
-            $("#logCep").css({
-                "border-color": "red"
-            });
-            $("#divLoad").removeClass();
-            $("#divLoad").addClass("loaderError");
-            $("#lbAlertCep").html('Número do CEP inválido!');
-            $("#lbAlertCep").css({
-                "color": "red",
-                "font-size": "15px"
-            });
+            cepInvalido();
 
         } else if ($('#logCep').val().length == 10) {
             $("#logCep").css({
@@ -112,6 +104,8 @@ $(document).ready(function () {
                 "font-size": "15px"
             });
             configuraEnderecoPorCep($('#logCep').val());
+        } else {
+            cepInvalido();
         }
 
         $('#selectAtividade').prop('selectedIndex', 0);
@@ -185,7 +179,7 @@ function populateDataTable(data) {
 
     for (var i = 0; i < data.length; i++) {
         var emp = data[i];
-        
+
         var cdemp = emp.cdtri != null ? emp.cdtri.trim() : "",
                 cdcgc = emp.cdcgc != null ? emp.cdcgc.trim() : "",
                 cdmun = emp.cdmun != null ? emp.cdmun.trim() : "",

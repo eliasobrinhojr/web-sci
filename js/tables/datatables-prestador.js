@@ -25,10 +25,44 @@ $(document).ready(function () {
     $('#table_prestadores tbody').on('click', 'tr', function () {
 
         var data = table.row(this).data();
-        console.log(data[2].trim());
-        
+        // console.log(data[7].trim());
+
+        $('#forcomplemento').val(data[6].trim());
+
+        data[7] = data[7].replace('.', '');
+        data[7] = data[7].replace('-', '');
+        var strCep = data[7].replace(/^([\d]{2})([\d]{3})([\d]{3})|^[\d]{2}.[\d]{3}-[\d]{3}/, "$1.$2-$3");
+        $('#logCep').val(strCep.toString());
+        console.log(strCep);
+        if ($('#logCep').val().length < 10) {
+            cepInvalido();
+
+        } else if ($('#logCep').val().length == 10) {
+            $("#logCep").css({
+                "border-color": "green"
+            });
+            $("#divLoad").removeClass();
+            $("#divLoad").addClass("loader");
+            $("#lbAlertCep").html('Buscando...');
+            $("#lbAlertCep").css({
+                "color": "green",
+                "font-size": "15px"
+            });
+            configuraEnderecoPorCep($('#logCep').val());
+        } else {
+            cepInvalido();
+        }
+
+
         $('#forTipo').val(data[2].trim());
-        
+
+        $('#lbcpfcnpj').html('');
+
+        if ($('#forTipo').val() == 'F') {
+            $('#lbcpfcnpj').html('CPF');
+        } else {
+            $('#lbcpfcnpj').html('CNPJ');
+        }
 
         if (data[3].trim().length == 11) {
             $('#cpfcnpj').val(data[3].trim().replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "\$1.\$2.\$3\-\$4"));
@@ -64,7 +98,9 @@ $(document).ready(function () {
             });
         }
 
-
+        $('.progress-bar').css('width', '20%');
+        $('.progress-bar').html('Passo 1 de 2');
+        $('#myTab a[href="#infoPanel"]').tab('show');
 
         $('#modal').modal({
             backdrop: 'static'

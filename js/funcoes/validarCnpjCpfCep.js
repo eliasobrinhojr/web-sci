@@ -93,3 +93,145 @@ function validarCep(cep) {
     exp = /\d{2}\.\d{3}\-\d{3}/;
     return !exp.test(cep) ? true : false;
 }
+
+function configuraEnderecoPorCep(cep) {
+
+
+    var url_local = "http://dev.grupois.mao/sciweb/ws-sci/service/enderecamento/logradouro/read.php?acao=byCep&strCep=" + cep;
+    $.ajax({
+        type: 'GET',
+        url: url_local,
+        dataType: 'json',
+        success: function (data) {
+
+            if (data.count > 0) {
+
+                $('#selectCidade').prop('disabled', false);
+                $('select[name=selectCidade]').html('');
+                $('select[name=selectCidade]').append('<option selected disabled value="0">Selecione</option>');
+
+                for (i = 0; i < data.count; i++) {
+                    if (data.count == 1) {
+                        $('select[name=selectCidade]').append('<option selected value="' + data.body[i].cidadeId + '">' + data.body[i].cidadeNome + ' (' + data.body[i].estSigla + ')</option>');
+                        carregaComboLogradouro(data.body[i].cidadeId);
+                    } else {
+                        $('select[name=selectCidade]').append('<option value="' + data.body[i].cidadeId + '">' + data.body[i].cidadeNome + ' (' + data.body[i].estSigla + ')</option>');
+
+                    }
+                }
+
+                $("#divLoad").addClass("loaderSuccess");
+                $("#lbAlertCep").html('Endereço encontrado !');
+                $("#lbAlertCep").css({
+                    "color": "green",
+                    "font-size": "15px"
+                });
+
+            } else {
+//procura no webService
+
+                buscaViaCep(cep);
+
+            }
+
+        }, error: function (result) {
+            console.log(result);
+        }
+    });
+}
+
+function buscaViaCep(cep) {
+
+    var strCep = cep.replace('.', '');
+    strCep = strCep.replace('-', '');
+
+    var url_via_cep = "https://viacep.com.br/ws/" + strCep + "/json/";
+    $.ajax({
+        type: 'GET',
+        url: url_via_cep,
+        dataType: 'json',
+        success: function (data) {
+
+
+
+            var obj = {
+                logNome: data["logradouro"],
+                logCEP: data["cep"],
+                logComplemento: data["complemento"],
+                cidIdCidade: 0,
+                cidadeNome: data["localidade"],
+                uf: data["uf"]
+            };
+
+            //faz o post ao retornar 200, busca interno novamente  e carrega formulário
+            insertLogradouro(obj);
+
+
+        }, error: function (result) {
+            console.log(result);
+        }
+    });
+}
+
+function insertLogradouro(obj) {
+    var url = "http://dev.grupois.mao/sciweb/ws-sci/service/enderecamento/logradouro/create.php";
+    $.ajax({
+        type: 'post',
+        dataType: 'json',
+        url: url,
+        data: JSON.stringify(obj),
+        success: function (data) {
+
+            if (data.cod == 0) {
+                cepInvalido();
+            }
+
+            configuraEnderecoPorCep(obj.logCEP);
+
+        }, error: function (result) {
+            console.log(result);
+        }
+    });
+}
+
+function carregaComboLogradouro(id_cidade) {
+    var url = "http://dev.grupois.mao/sciweb/ws-sci/service/enderecamento/logradouro/read.php?acao=byCidadeAndCep&id_cidade=" + id_cidade + "&strCep=" + $('#logCep').val();
+    $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: 'json',
+        success: function (data) {
+
+            $('#selectLogradouro').prop('disabled', false);
+            $('select[name=selectLogradouro]').html('');
+            $('select[name=selectLogradouro]').append('<option selected disabled value="0">Selecione</option>');
+
+            for (i = 0; i < data.count; i++) {
+
+                if (data.count == 1) {
+                    $('select[name=selectLogradouro]').append('<option selected value="' + data.body[i].logId + '">' + data.body[i].logNome + '</option>');
+                } else {
+                    $('select[name=selectLogradouro]').append('<option value="' + data.body[i].logId + '">' + data.body[i].logNome + '</option>');
+
+                }
+            }
+
+
+        }, error: function (result) {
+            console.log(result);
+        }
+    });
+}
+
+function cepInvalido() {
+    $("#logCep").css({
+        "border-color": "red"
+    });
+    $("#divLoad").removeClass();
+    $("#divLoad").addClass("loaderError");
+    $("#lbAlertCep").html('Número do CEP inválido!');
+    $("#lbAlertCep").css({
+        "color": "red",
+        "font-size": "15px"
+    });
+}
