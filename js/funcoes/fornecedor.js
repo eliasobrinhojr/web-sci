@@ -62,6 +62,16 @@ function configuraTabs() {
         $('#activate').click(function (e) {
             e.preventDefault();
 
+
+            var obj = {
+                forCNPJ_CPF: $('#cpfcnpj').val(),
+                forTipo: $('#forTipo').val(),
+                logIdLogradouro: $('#selectLogradouro').val(),
+                forEnderecoComplemento: $('#forcomplemento').val(),
+                forEnderecoNumero: $('#endNumero').val(),
+                forINSS: $('#inss').val()
+            };
+            
             alert('salvar');
 
         });

@@ -142,35 +142,44 @@ function configuraEnderecoPorCep(cep) {
 
 function buscaViaCep(cep) {
 
-    var strCep = cep.replace('.', '');
-    strCep = strCep.replace('-', '');
+    console.log(cep);
 
-    var url_via_cep = "https://viacep.com.br/ws/" + strCep + "/json/";
-    $.ajax({
-        type: 'GET',
-        url: url_via_cep,
-        dataType: 'json',
-        success: function (data) {
+    if (cep != null) {
+
+        var strCep = cep.replace('.', '');
+        strCep = strCep.replace('-', '');
+
+        var url_via_cep = "https://viacep.com.br/ws/" + strCep + "/json/";
+        $.ajax({
+            type: 'GET',
+            url: url_via_cep,
+            dataType: 'json',
+            success: function (data) {
+
+                if (!data.erro) {
+                    var obj = {
+                        logNome: data["logradouro"],
+                        logCEP: data["cep"],
+                        logComplemento: data["complemento"],
+                        cidIdCidade: 0,
+                        cidadeNome: data["localidade"],
+                        uf: data["uf"]
+                    };
+
+                    //faz o post ao retornar 200, busca interno novamente  e carrega formulário
+                    insertLogradouro(obj);
+                } else {
+                    cepInvalido();
+                }
 
 
 
-            var obj = {
-                logNome: data["logradouro"],
-                logCEP: data["cep"],
-                logComplemento: data["complemento"],
-                cidIdCidade: 0,
-                cidadeNome: data["localidade"],
-                uf: data["uf"]
-            };
 
-            //faz o post ao retornar 200, busca interno novamente  e carrega formulário
-            insertLogradouro(obj);
-
-
-        }, error: function (result) {
-            console.log(result);
-        }
-    });
+            }, error: function (result) {
+                console.log(result);
+            }
+        });
+    }
 }
 
 function insertLogradouro(obj) {
@@ -182,9 +191,6 @@ function insertLogradouro(obj) {
         data: JSON.stringify(obj),
         success: function (data) {
 
-            if (data.cod == 0) {
-                cepInvalido();
-            }
 
             configuraEnderecoPorCep(obj.logCEP);
 
