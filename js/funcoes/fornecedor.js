@@ -21,14 +21,17 @@ function configuraTabs() {
             var msg = '';
 
 
+            if ($('#selectEmpresa').val() == 0 || $('#selectEmpresa').val() == null) {
+                msg += '\nEmpresa Obrigatória';
+            }
             if ($('#forTipo').val() == 'F') {
                 if ($("#cpfcnpj").val().trim() == '') {
                     msg += '\nCPF Obrigatório\n';
                 } else if (!validaCPF($("#cpfcnpj").val().trim())) {
                     msg += '\nCPF Inválido\n';
                 } else {
-                    $('.progress-bar').css('width', '60%');
-                    $('.progress-bar').html('Passo 2 de 3');
+                    $('.progress-bar').css('width', '50%');
+                    $('.progress-bar').html('Passo 1 de 2');
                     $('#myTab a[href="#schedulePanel"]').tab('show');
                 }
             } else {
@@ -36,16 +39,16 @@ function configuraTabs() {
                     msg += '\nCNPJ Obrigatório\n';
                 } else if (!valida_cnpj($("#cpfcnpj").val().trim())) {
                     msg += '\nCNPJ Inválido\n';
-                } else {
-                    $('.progress-bar').css('width', '60%');
-                    $('.progress-bar').html('Passo 2 de 3');
-                    $('#myTab a[href="#schedulePanel"]').tab('show');
                 }
             }
 
 
             if (msg != '') {
                 alert(msg);
+            } else {
+                $('.progress-bar').css('width', '100%');
+                $('.progress-bar').html('Passo 2 de 2');
+                $('#myTab a[href="#schedulePanel"]').tab('show');
             }
             msg = '';
         });
@@ -54,8 +57,8 @@ function configuraTabs() {
         $('#logBack').click(function (e) {
             e.preventDefault();
 
-            $('.progress-bar').css('width', '40%');
-            $('.progress-bar').html('Passo 2 de 3');
+            $('.progress-bar').css('width', '50%');
+            $('.progress-bar').html('Passo 2 de 2');
             $('#myTab a[href="#infoPanel"]').tab('show');
 
         });
@@ -69,15 +72,63 @@ function configuraTabs() {
                 logIdLogradouro: $('#selectLogradouro').val(),
                 forEnderecoComplemento: $('#forcomplemento').val(),
                 forEnderecoNumero: $('#endNumero').val(),
-                forINSS: $('#inss').val()
+                forINSS: $('#inss').val(),
+                forNome: $('#forNome').val(),
+                id_empresa: $('#selectEmpresa').val()
             };
-            
-            alert('salvar');
+
+            insertFornecedor(obj);
+
 
         });
     });
 }
 
+
+function carregaComboEmpresa() {
+    var url = "http://dev.grupois.mao/sciweb/ws-sci/service/empresa/empresa/read.php?acao=all";
+    $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: 'json',
+        success: function (data) {
+
+            console.log(data);
+            $('select[name=selectEmpresa]').append('<option selected disabled value="0">Selecione</option>');
+            for (i = 0; i < data.count; i++) {
+                $('select[name=selectEmpresa]').append('<option value="' + data.body[i].empidEmpresas + '">' + data.body[i].empRazaoSocial + '</option>');
+            }
+
+
+        }, error: function (result) {
+            console.log(result);
+        }
+    });
+}
+
+function insertFornecedor(obj) {
+    
+    console.log(JSON.stringify(obj));
+    
+//    var url = "http://dev.grupois.mao/sciweb/ws-sci/service/fornecedor/fornecedor/create.php";
+//    $.ajax({
+//        type: 'POST',
+//        url: url,
+//        dataType: 'json',
+//        data: JSON.stringify(obj),
+//        success: function (data) {
+//            alert(data.message);
+//
+//            $('#modal').modal('hide');
+//            $('#selectCidade').html('');
+//            $('#selectLogradouro').html('');
+//
+//
+//        }, error: function (result) {
+//            console.log(result);
+//        }
+//    });
+}
 
 function inputMask() {
 

@@ -240,4 +240,9 @@ function cepInvalido() {
         "color": "red",
         "font-size": "15px"
     });
+
+    $('#selectCidade').prop('disabled', true);
+    $('#selectLogradouro').prop('disabled', true);
+    $('#selectLogradouro').html('');
+    $('#selectCidade').html('');
 }

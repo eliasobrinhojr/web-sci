@@ -94,7 +94,7 @@
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="wizard-title">Formulário Empresa</h5>
+                                        <h5 class="modal-title" id="wizard-title">Formulário Fornecedor</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -120,10 +120,17 @@
                                                     <div class="form-row">
 
                                                         <div class="col-md-6"> 
+                                                            <label for="">&nbsp;</label>
                                                             <div class="form-label-group">
                                                                 <input type="hidden" name="forTipo" id="forTipo"/>
                                                                 <input type="text" id="cpfcnpj" name="cpfcnpj" maxlength="18" class="form-control" autofocus="autofocus">
                                                                 <label id="lbcpfcnpj" for="cpfcnpj">CPF ou CNPJ</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6"> 
+                                                            <label for="">Empresa</label>
+                                                            <div class="form-label-group">
+                                                                <select id="selectEmpresa" name="selectEmpresa" class="form-control"></select>
                                                             </div>
                                                         </div>
 
@@ -131,7 +138,15 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="form-row">
+                                                        <div class="col-md-6">
+                                                            <label for="">&nbsp;</label>
 
+                                                            <div class="form-label-group">
+                                                                <input type="text" id="forNome" class="form-control" placeholder="Razão Social">
+                                                                <label for="forNome">Nome</label>
+                                                            </div>
+
+                                                        </div>
                                                         <div class="col-md-6">
                                                             <label for="">&nbsp;</label>
 
@@ -228,7 +243,7 @@
 
                                         </div>
                                         <div class="progress mt-5">
-                                            <div class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Passo 1 de 3</div>
+                                            <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">Passo 1 de 2</div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">

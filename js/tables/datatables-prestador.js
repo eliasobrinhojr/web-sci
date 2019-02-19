@@ -24,10 +24,13 @@ $(document).ready(function () {
     getDataPrestadores();
     $('#table_prestadores tbody').on('click', 'tr', function () {
 
+        carregaComboEmpresa();
         var data = table.row(this).data();
         // console.log(data[7].trim());
 
         $('#forcomplemento').val(data[6].trim());
+        
+        $('#forNome').val(data[5].trim());
 
         data[7] = data[7].replace('.', '');
         data[7] = data[7].replace('-', '');
@@ -98,7 +101,7 @@ $(document).ready(function () {
             });
         }
 
-        $('.progress-bar').css('width', '20%');
+        $('.progress-bar').css('width', '50%');
         $('.progress-bar').html('Passo 1 de 2');
         $('#myTab a[href="#infoPanel"]').tab('show');
 

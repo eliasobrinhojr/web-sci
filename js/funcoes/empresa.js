@@ -252,10 +252,7 @@ function inputMask() {
         } else if ($(this).val().length < 10) {
             cepInvalido();
 
-            $('#selectCidade').prop('disabled', true);
-            $('#selectLogradouro').prop('disabled', true);
-            $('#selectLogradouro').html('');
-            $('#selectCidade').html('');
+            
         }
     });
 }
